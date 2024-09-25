@@ -1,7 +1,7 @@
 # Requirements
 ### MVP:
 1. Scan a wall and create a vartical plane within the wall
-2. Being ale to choose predefined ratio of a frame (both portrait and landscape)
+2. Being able to choose predefined ratio of a frame (both portrait and landscape)
 3. Being able to place object
 4. Being able to move object around
 5. Being able to scale an object within the app

@@ -1,16 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 
-public class FramePlacer : MonoBehaviour
+
+public class FramePlacer : PressInputBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private ARRaycastManager raycastManager;
+    [SerializeField] private GameObject objectToPlace;
+    private static readonly List<ARRaycastHit> _hits = new();
+    private bool _carPlaced;
 
-    // Update is called once per frame
-    void Update()
+    protected override void OnPressBegan(Vector3 position)
     {
-        
+        base.OnPressBegan(position);
+        if (_carPlaced) return;
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
+        var hitpose = _hits[0].pose;
+        Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
+        _carPlaced = true;
     }
 }

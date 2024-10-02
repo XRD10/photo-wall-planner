@@ -8,7 +8,7 @@ public class SaveManager : MonoBehaviour
 {
 	public GameObject button;
 	public GameObject iconButton;
-	public void SaveGame()
+	public void SaveProject()
 	{
 		iconButton.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 
@@ -32,6 +32,8 @@ public class SaveManager : MonoBehaviour
 	{
 		string timeStamp = System.DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
 		yield return new WaitForEndOfFrame();
+		Debug.Log($"executed");
+
 
 		Texture2D ss = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
 		ss.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);

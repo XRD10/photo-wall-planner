@@ -9,6 +9,7 @@ public class FramePlacer : PressInputBase
 {
     [SerializeField] private ARRaycastManager raycastManager;
     [SerializeField] private GameObject objectToPlace;
+    [SerializeField] private Canvas setFrameSizesCanvas;
     private static readonly List<ARRaycastHit> _hits = new();
     private bool _framePlaced;
 
@@ -18,7 +19,19 @@ public class FramePlacer : PressInputBase
         if (_framePlaced) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
+
+        setFrameSizesCanvas.enabled = true;
+    }
+
+    //TODO: Add size Z
+    public void PlaceFrame(float sizeX, float sizeZ)
+    {
+        //from cm to unity units (m)
+        sizeX /= 100;
+        sizeZ /= 100;
+
         var hitpose = _hits[0].pose;
+        objectToPlace.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y/100, sizeZ);
         Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
         _framePlaced = true;
     }

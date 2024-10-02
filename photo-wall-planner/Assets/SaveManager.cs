@@ -1,7 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
+// reference: https://stackoverflow.com/questions/60475027/unity-android-save-screenshot-in-gallery
 public class SaveManager : MonoBehaviour
 {
 	public GameObject button;
@@ -21,14 +23,56 @@ public class SaveManager : MonoBehaviour
 		iconButton.transform.localScale = Vector3.one;
 	}
 
-	void TakeScreenshot()
+	public void TakeScreenshot()
 	{
-		string screenshotFileName = $"test-screenshots/screenshot_{System.DateTime.Now.ToString("yyyyMMdd_HHmmss")}.png";
-		ScreenCapture.CaptureScreenshot(screenshotFileName);
-		Debug.Log($"Screenshot saved as {screenshotFileName}");
+		StartCoroutine(TakeScreenshotAndSave());
 	}
 
-	// todo use maybe
+	private IEnumerator TakeScreenshotAndSave()
+	{
+		string timeStamp = System.DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
+		yield return new WaitForEndOfFrame();
+
+		Texture2D ss = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+		ss.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+		ss.Apply();
+
+		string filePath = Path.Combine(GetAndroidExternalStoragePath(), "Export-" + timeStamp + ".png");
+
+		File.WriteAllBytes(filePath, ss.EncodeToPNG());
+
+		// Notify the gallery about the new file
+#if UNITY_ANDROID
+		AndroidJavaClass mediaScanner = new AndroidJavaClass("android.media.MediaScannerConnection");
+		AndroidJavaClass playerActivity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+		AndroidJavaObject activity = playerActivity.GetStatic<AndroidJavaObject>("currentActivity");
+		mediaScanner.CallStatic("scanFile", activity, new string[] { filePath }, null, null);
+#endif
+
+		Debug.Log($"Screenshot saved to gallery: {filePath}");
+		Destroy(ss);
+	}
+
+	private string GetAndroidExternalStoragePath()
+	{
+		if (Application.platform != RuntimePlatform.Android)
+			return Application.persistentDataPath;
+
+		var jc = new AndroidJavaClass("android.os.Environment");
+		var path = jc.CallStatic<AndroidJavaObject>("getExternalStoragePublicDirectory",
+			 jc.GetStatic<string>("DIRECTORY_DCIM"))
+			 .Call<string>("getAbsolutePath");
+
+		path = Path.Combine(path, "PhotoWallPlanner");
+		if (!Directory.Exists(path))
+		{
+			Directory.CreateDirectory(path);
+		}
+		return path;
+	}
+
+
+	// todo use maybe to hide button
 	void SetImageTransparency(GameObject parentButton, float alpha)
 	{
 		Image[] images = parentButton.GetComponentsInChildren<Image>();

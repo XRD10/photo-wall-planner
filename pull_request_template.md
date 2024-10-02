@@ -1,3 +1,5 @@
+### Closes #[issue number]
+
 ### THE Checklist:
 - [ ] I have review my code
 - [ ] I have removed unnecessary comments

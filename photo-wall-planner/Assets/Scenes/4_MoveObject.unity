@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastManager: {fileID: 1340727327}
-  targetTag: Pyramid
+  targetTag: Frame
 --- !u!1 &1185326008
 GameObject:
   m_ObjectHideFlags: 0

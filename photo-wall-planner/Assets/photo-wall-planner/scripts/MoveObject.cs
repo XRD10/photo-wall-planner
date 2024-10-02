@@ -3,17 +3,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using UnityEngine.InputSystem;  
+using UnityEngine.InputSystem;  // New Input System namespace
 
 public class MoveObject : PressInputBase
 {
     [SerializeField] private ARRaycastManager raycastManager;
-    [SerializeField] private string targetTag = "Pyramid";  
+    [SerializeField] private string targetTag;  
 
     private static readonly List<ARRaycastHit> _hits = new();
-
-    private bool isDragging = false; 
-    private Transform objectToMove;  
+    
+    private bool isDragging = false;      
+    private Transform objectToMove;       
+    private TrackableId initialPlaneId;   
 
     protected override void OnPress(Vector3 position)
     {
@@ -21,9 +22,10 @@ public class MoveObject : PressInputBase
 
         if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
 
-        var hitpose = _hits[0].pose;
+        var hitPose = _hits[0].pose;
+        var hitTrackableId = _hits[0].trackableId;
 
-        Ray ray = new Ray(Camera.main.transform.position, hitpose.position - Camera.main.transform.position);
+        Ray ray = new Ray(Camera.main.transform.position, hitPose.position - Camera.main.transform.position);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100))
         {
@@ -31,7 +33,8 @@ public class MoveObject : PressInputBase
             {
                 Debug.Log("Hit the target object with tag: " + targetTag);
                 objectToMove = hit.transform;
-                isDragging = true;  
+                isDragging = true; 
+                initialPlaneId = hitTrackableId;  
             }
         }
     }
@@ -44,11 +47,16 @@ public class MoveObject : PressInputBase
 
             if (raycastManager.Raycast(screenPosition, _hits, TrackableType.PlaneWithinPolygon))
             {
-                Pose hitPose = _hits[0].pose;
-                objectToMove.position = hitPose.position;  
+                var hitPose = _hits[0].pose;
+                var hitTrackableId = _hits[0].trackableId;
+
+                if (hitTrackableId == initialPlaneId)
+                {
+                    objectToMove.position = hitPose.position;  
+                }
             }
 
-            if (Pointer.current.press.isPressed == false)  
+            if (Pointer.current.press.isPressed == false)
             {
                 isDragging = false;
                 objectToMove = null;

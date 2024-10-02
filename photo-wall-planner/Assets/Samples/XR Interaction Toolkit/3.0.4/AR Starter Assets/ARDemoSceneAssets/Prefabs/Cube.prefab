@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4719697340578916628}
   - component: {fileID: 2996392715678626154}
   - component: {fileID: 7357653953804275573}
+  - component: {fileID: 2118410341921235096}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Frame
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,6 +210,27 @@ MonoBehaviour:
   m_Elasticity: 0.15
   m_EnableElasticBreakLimit: 1
   m_ElasticBreakLimit: 0.5
+--- !u!65 &2118410341921235096
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613292779795284151}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.19, y: 0.19, z: 0.18}
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!1 &3435864238947048048
 GameObject:
   m_ObjectHideFlags: 0

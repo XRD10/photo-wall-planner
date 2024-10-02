@@ -31,8 +31,8 @@ public class FramePlacer : PressInputBase
         sizeZ /= 100;
 
         var hitpose = _hits[0].pose;
-        objectToPlace.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y/100, sizeZ);
-        Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
+        GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
+        instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 100, sizeZ);
         _framePlaced = true;
     }
 }

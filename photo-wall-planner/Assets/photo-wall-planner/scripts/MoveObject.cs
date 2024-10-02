@@ -3,38 +3,56 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.InputSystem;  
 
 public class MoveObject : PressInputBase
 {
     [SerializeField] private ARRaycastManager raycastManager;
-    [SerializeField] private string targetTag = "Pyramid";  // The tag to check for
+    [SerializeField] private string targetTag = "Pyramid";  
 
     private static readonly List<ARRaycastHit> _hits = new();
 
-   protected override void OnPress(Vector3 position)
-{
-    Debug.Log("Press");
+    private bool isDragging = false; 
+    private Transform objectToMove;  
 
-    if (EventSystem.current.IsPointerOverGameObject()) return;
-    
-    if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
-
-    var hitpose = _hits[0].pose;
-    Debug.Log("HERE");
-
-    Ray ray = new Ray(Camera.main.transform.position, hitpose.position - Camera.main.transform.position);
-
-    if (Physics.Raycast(ray, out RaycastHit hit, 100))
+    protected override void OnPress(Vector3 position)
     {
-        Debug.Log("hit");
-        Debug.Log(hit.transform.name + " : " + hit.transform.tag);
+        if (EventSystem.current.IsPointerOverGameObject()) return;
 
-        if (hit.transform.CompareTag(targetTag))
+        if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
+
+        var hitpose = _hits[0].pose;
+
+        Ray ray = new Ray(Camera.main.transform.position, hitpose.position - Camera.main.transform.position);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100))
         {
-            Debug.Log("Hit the target object with tag: " + targetTag);
+            if (hit.transform.CompareTag(targetTag))
+            {
+                Debug.Log("Hit the target object with tag: " + targetTag);
+                objectToMove = hit.transform;
+                isDragging = true;  
+            }
         }
     }
-}
 
+    private void Update()
+    {
+        if (isDragging)
+        {
+            Vector2 screenPosition = Pointer.current.position.ReadValue();
 
+            if (raycastManager.Raycast(screenPosition, _hits, TrackableType.PlaneWithinPolygon))
+            {
+                Pose hitPose = _hits[0].pose;
+                objectToMove.position = hitPose.position;  
+            }
+
+            if (Pointer.current.press.isPressed == false)  
+            {
+                isDragging = false;
+                objectToMove = null;
+            }
+        }
+    }
 }

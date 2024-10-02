@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 7109682686697656314}
   - component: {fileID: 7109682686697656317}
   - component: {fileID: 408817791868583526}
-  - component: {fileID: 4546755995766323882}
+  - component: {fileID: -5141744425320347710}
   m_Layer: 0
   m_Name: Pyramid
   m_TagString: Pyramid
@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Elasticity: 0.15
   m_EnableElasticBreakLimit: 1
   m_ElasticBreakLimit: 0.5
---- !u!65 &4546755995766323882
+--- !u!65 &-5141744425320347710
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,12 +334,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.31, y: 0.19, z: 0.28}
+  m_Center: {x: 0, y: 0.09, z: 0}
 --- !u!1 &9015814736466519903
 GameObject:
   m_ObjectHideFlags: 0

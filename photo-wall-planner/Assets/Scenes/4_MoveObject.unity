@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastManager: {fileID: 1340727327}
-  objectToPlace: {fileID: 7109682686697656319, guid: 5642b79498b10465fa9219ba4682355b,
+  objectToPlace: {fileID: 613292779795284151, guid: ebd7292e888c84f05924605e51048072,
     type: 3}
 --- !u!4 &710260146
 Transform:

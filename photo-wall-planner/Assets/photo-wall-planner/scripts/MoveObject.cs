@@ -31,7 +31,6 @@ public class MoveObject : PressInputBase
         {
             if (hit.transform.CompareTag(targetTag))
             {
-                Debug.Log("Hit the target object with tag: " + targetTag);
                 objectToMove = hit.transform;
                 isDragging = true; 
                 initialPlaneId = hitTrackableId;  

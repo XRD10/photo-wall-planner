@@ -23,7 +23,6 @@ public class FramePlacer : PressInputBase
         setFrameSizesCanvas.enabled = true;
     }
 
-    //TODO: Add size Z
     public void PlaceFrame(float sizeX, float sizeZ)
     {
         //from cm to unity units (m)

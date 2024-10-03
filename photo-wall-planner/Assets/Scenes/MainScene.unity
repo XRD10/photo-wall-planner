@@ -577,6 +577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 710260146}
   - component: {fileID: 710260145}
+  - component: {fileID: 710260147}
   m_Layer: 0
   m_Name: FrameManager
   m_TagString: Untagged
@@ -614,6 +615,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &710260147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710260144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09ff0e7ffdcd14fab9f65b92f53983a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastManager: {fileID: 1340727327}
+  targetTag: Frame
 --- !u!1 &1185326008
 GameObject:
   m_ObjectHideFlags: 0

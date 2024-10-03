@@ -82,7 +82,7 @@ PrefabInstance:
     - target: {fileID: 7109682686697656319, guid: 5642b79498b10465fa9219ba4682355b,
         type: 3}
       propertyPath: m_TagString
-      value: Pyramid
+      value: Frame
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

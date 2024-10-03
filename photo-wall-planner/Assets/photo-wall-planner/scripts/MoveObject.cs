@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using UnityEngine.InputSystem;  // New Input System namespace
+using UnityEngine.InputSystem;  
 
 public class MoveObject : PressInputBase
 {

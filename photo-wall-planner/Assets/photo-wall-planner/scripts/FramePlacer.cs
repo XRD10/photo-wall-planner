@@ -22,7 +22,7 @@ public class FramePlacer : PressInputBase
         ray = arCamera.ScreenPointToRay(position);
 
         if (Physics.Raycast(ray, out RaycastHit hitObject))
-            if (hitObject.transform.CompareTag("Placable")) return;
+            if (hitObject.transform.CompareTag(Tag.Placable.ToString())) return;
 
         Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
     }

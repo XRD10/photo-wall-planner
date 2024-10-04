@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/5_typeXandY.unity
     guid: 0f6197ac94d6642348a2bc5326921227
+  - enabled: 0
+    path: Assets/Scenes/7_SaveProject.unity
+    guid: 59b3139d782ee48a689df929754661e7
+  - enabled: 0
+    path: Assets/Scenes/MainScene.unity
+    guid: 0347746b71aa44ba19ea2904984d8c14
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}
@@ -24,5 +30,4 @@ EditorBuildSettings:
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: b07c4ba7650be4c25b3d0c497e7e2bb8,
       type: 2}
-  m_UseUCBPForAssetBundles: 0
   m_UseUCBPForAssetBundles: 0

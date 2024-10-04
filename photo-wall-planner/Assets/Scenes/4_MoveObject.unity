@@ -149,8 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastManager: {fileID: 1340727327}
-  objectToPlace: {fileID: 613292779795284151, guid: ebd7292e888c84f05924605e51048072,
+  objectToPlace: {fileID: 7657548977611231357, guid: 3cbfcd4079a5031478389d5ab3c8c311,
     type: 3}
+  arCamera: {fileID: 1360256773}
 --- !u!4 &710260146
 Transform:
   m_ObjectHideFlags: 0
@@ -179,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastManager: {fileID: 1340727327}
-  targetTag: Frame
+  targetTag: Placable
 --- !u!1 &1185326008
 GameObject:
   m_ObjectHideFlags: 0

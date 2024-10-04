@@ -1,3 +1,6 @@
-public enum Tag{
-    Placable
+public enum Tag
+{
+    Placable,
+    Frame,
+    Pyramid,
 }

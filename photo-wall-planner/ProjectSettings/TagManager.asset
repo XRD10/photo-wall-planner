@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - ButtonIconTag
+  - Frame
+  - Pyramid
   layers:
   - Default
   - TransparentFX

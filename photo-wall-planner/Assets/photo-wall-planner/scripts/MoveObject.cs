@@ -8,9 +8,8 @@ using UnityEngine.InputSystem;
 public class MoveObject : PressInputBase
 {
     [SerializeField] private ARRaycastManager raycastManager;
-    [SerializeField] private string targetTag;  
-
     private static readonly List<ARRaycastHit> _hits = new();
+    private readonly string targetTag = Tag.Placable.ToString();  
     
     private bool isDragging = false;      
     private Transform objectToMove;       

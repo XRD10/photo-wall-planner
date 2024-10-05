@@ -24,6 +24,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 1e7f6f70c50e3864789127de6b014097,
         type: 2}
+    - target: {fileID: 7109682686697656314, guid: 5642b79498b10465fa9219ba4682355b,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109682686697656314, guid: 5642b79498b10465fa9219ba4682355b,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109682686697656314, guid: 5642b79498b10465fa9219ba4682355b,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7109682686697656316, guid: 5642b79498b10465fa9219ba4682355b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -74,6 +89,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7109682686697656317, guid: 5642b79498b10465fa9219ba4682355b,
+        type: 3}
+      propertyPath: m_Colliders.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7109682686697656319, guid: 5642b79498b10465fa9219ba4682355b,
         type: 3}
       propertyPath: m_Name
@@ -82,7 +102,7 @@ PrefabInstance:
     - target: {fileID: 7109682686697656319, guid: 5642b79498b10465fa9219ba4682355b,
         type: 3}
       propertyPath: m_TagString
-      value: Frame
+      value: Placable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

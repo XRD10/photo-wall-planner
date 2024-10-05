@@ -10,15 +10,20 @@ public class FramePlacer : PressInputBase
     [SerializeField] private ARRaycastManager raycastManager;
     [SerializeField] private GameObject objectToPlace;
     [SerializeField] private Canvas setFrameSizesCanvas;
+    [SerializeField] private Camera arCamera;
     private static readonly List<ARRaycastHit> _hits = new();
-    private bool _framePlaced;
+    private Ray ray;
 
     protected override void OnPressBegan(Vector3 position)
     {
         base.OnPressBegan(position);
-        if (_framePlaced) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
+
+        ray = arCamera.ScreenPointToRay(position);
+
+        if (Physics.Raycast(ray, out RaycastHit hitObject))
+            if (hitObject.transform.CompareTag(Tag.Placable.ToString())) return;
 
         setFrameSizesCanvas.enabled = true;
     }
@@ -30,8 +35,8 @@ public class FramePlacer : PressInputBase
         sizeZ /= 100;
 
         var hitpose = _hits[0].pose;
+
         GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
         instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
-        _framePlaced = true;
     }
 }

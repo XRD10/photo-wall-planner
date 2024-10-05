@@ -22,9 +22,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CubeVariant
       objectReference: {fileID: 0}
+    - target: {fileID: 613292779795284151, guid: ebd7292e888c84f05924605e51048072,
+        type: 3}
+      propertyPath: m_TagString
+      value: Placable
+      objectReference: {fileID: 0}
     - target: {fileID: 3471538223933167219, guid: ebd7292e888c84f05924605e51048072,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 83eabfe673263a445972586e5d8b56ee, type: 2}
     - target: {fileID: 3900644259840735266, guid: ebd7292e888c84f05924605e51048072,

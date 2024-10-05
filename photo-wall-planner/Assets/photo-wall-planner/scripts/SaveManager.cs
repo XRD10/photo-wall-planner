@@ -10,6 +10,7 @@ public class SaveManager : MonoBehaviour
 	public GameObject iconButton;
 	public void SaveProject()
 	{
+		Debug.Log("Saving project...");
 		iconButton.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 
 		StartCoroutine(ResetScaleAfterDelay());

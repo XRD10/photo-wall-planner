@@ -20,6 +20,8 @@ public class MoveObject : PressInputBase
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
+        if (raycastManager == null) return;
+
         if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
 
         var hitPose = _hits[0].pose;

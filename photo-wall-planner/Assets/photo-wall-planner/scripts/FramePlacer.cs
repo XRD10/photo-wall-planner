@@ -20,6 +20,11 @@ public class FramePlacer : PressInputBase
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
 
+        ray = arCamera.ScreenPointToRay(position);
+
+        if (Physics.Raycast(ray, out RaycastHit hitObject))
+            if (hitObject.transform.CompareTag(Tag.Placable.ToString())) return;
+
         setFrameSizesCanvas.enabled = true;
     }
 
@@ -30,10 +35,6 @@ public class FramePlacer : PressInputBase
         sizeZ /= 100;
 
         var hitpose = _hits[0].pose;
-        ray = arCamera.ScreenPointToRay(position);
-
-        if (Physics.Raycast(ray, out RaycastHit hitObject))
-            if (hitObject.transform.CompareTag(Tag.Placable.ToString())) return;
 
         GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
         instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);

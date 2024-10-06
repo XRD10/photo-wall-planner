@@ -74,3 +74,5 @@
 # Temporary auto-generated Android Assets
 /photo-wall-planner/[Aa]ssets/[Ss]treamingAssets/aa.meta
 /photo-wall-planner/[Aa]ssets/[Ss]treamingAssets/aa/*
+/.vs/slnx.sqlite
+/photo-wall-planner/photo-wall-planner_BurstDebugInformation_DoNotShip/tempburstlibs/arm64-v8a/lib_burst_generated.txt

@@ -19,7 +19,7 @@ public class FrameMenuUI : MonoBehaviour
     [SerializeField]
     public GameObject FrameToSpawn;
     [SerializeField]
-    public GameObject Orientation;
+    public GameObject OrientationWindow;
     private int NumberOfFrames;
     [SerializeField]
     private GameObject OptionsButton;
@@ -31,15 +31,15 @@ public class FrameMenuUI : MonoBehaviour
     private bool landScape = false;
 
     //UI interactions
-    public void OpenOrientation()
+    public void OpenOrientationWindow()
     {
         OptionsButton.SetActive(false);
-        Orientation.SetActive(true);
+        OrientationWindow.SetActive(true);
     }
 
 
 
-    // Will need to call this when we implement adding our own XY sizes
+    // Method to set the number of frames in the list
     private void SetNumberOfFrames()
     {
         NumberOfFrames = landScape ? ls_FrameObjects.Count : p_FrameObjects.Count;
@@ -64,14 +64,14 @@ public class FrameMenuUI : MonoBehaviour
         landScape = true;
         SetFrameSelection(ls_FrameObjects);
        // SetNumberOfFrames();
-        Orientation.SetActive(false);
+        OrientationWindow.SetActive(false);
         FramesList.SetActive(true);
         PopulateObjectList();
     }
     public void SetPortrait()
     {
         landScape = false;
-        Orientation.SetActive(false);
+        OrientationWindow.SetActive(false);
        // SetNumberOfFrames();
         SetFrameSelection(p_FrameObjects);
         FramesList.SetActive(true);
@@ -81,7 +81,7 @@ public class FrameMenuUI : MonoBehaviour
 
 
 
-    //Making buttons
+    //Making buttons in the list
     void PopulateObjectList()
     {
         if ((NumberOfFrames <= 0 || (buttonPrefab == null)))

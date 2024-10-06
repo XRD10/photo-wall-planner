@@ -23,8 +23,7 @@ public class FramePlacer : PressInputBase
         objectToPlace = frames.GetFrame();
         if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
         var hitpose = _hits[0].pose;
-        // Get the main camera's position
-        Instantiate(objectToPlace, hitpose.position,objectToPlace.transform.rotation);
+        Instantiate(objectToPlace, _hits[0].trackable.transform);
         _framePlaced = true;
     }
 }

@@ -556,6 +556,8 @@ MonoBehaviour:
   objectToPlace: {fileID: 7713564677252925045, guid: d63ca87df267d8f419ef2a2cd75bb5ff,
     type: 3}
   frames: {fileID: 2056695307}
+  setFrameSizesCanvas: {fileID: 0}
+  arCamera: {fileID: 0}
 --- !u!4 &710260146
 Transform:
   m_ObjectHideFlags: 0
@@ -688,7 +690,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2056695307}
         m_TargetAssemblyTypeName: FrameMenuUI, Assembly-CSharp
-        m_MethodName: OpenOrientation
+        m_MethodName: OpenOrientationWindow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1619,7 +1621,7 @@ MonoBehaviour:
   - {fileID: 6916559242482437649, guid: 0948525f68fc1724c9167130a42dc454, type: 3}
   - {fileID: 7713564677252925045, guid: d63ca87df267d8f419ef2a2cd75bb5ff, type: 3}
   FrameToSpawn: {fileID: 0}
-  Orientation: {fileID: 1788180409}
+  OrientationWindow: {fileID: 1788180409}
   OptionsButton: {fileID: 1259409226}
   FramesList: {fileID: 2056695303}
   FrameSelection: []

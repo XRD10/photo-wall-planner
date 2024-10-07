@@ -11,6 +11,7 @@ public class SetFrameSizesManager : MonoBehaviour
     [SerializeField] private TMP_Text invalidInputText;
 
     [SerializeField] private FramePlacer framePlacer;
+    [SerializeField] private GameObject framesButton;
 
     void Awake()
     {
@@ -22,8 +23,9 @@ public class SetFrameSizesManager : MonoBehaviour
             if (float.TryParse(sizeXInput.text, out var sizeX) && float.TryParse(sizeZInput.text, out var sizeZ))
             {
                 HideInvalidInputText();
-                framePlacer.PlaceFrame(sizeX, sizeZ);
+                framePlacer.PlaceCustomFrame(sizeX, sizeZ);
                 HideUI();
+                framesButton.SetActive(true);
             }
             else
             {

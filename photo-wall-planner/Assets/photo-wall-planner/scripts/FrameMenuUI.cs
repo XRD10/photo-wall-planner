@@ -22,9 +22,11 @@ public class FrameMenuUI : MonoBehaviour
     public GameObject OrientationWindow;
     private int NumberOfFrames;
     [SerializeField]
-    private GameObject OptionsButton;
+    private GameObject FramesButton;
     [SerializeField]
     private GameObject FramesList;
+    [SerializeField]
+    private Canvas setCustomFrameWindow;
     [SerializeField]
     private List<GameObject> FrameSelection = new List<GameObject>();
 
@@ -33,7 +35,7 @@ public class FrameMenuUI : MonoBehaviour
     //UI interactions
     public void OpenOrientationWindow()
     {
-        OptionsButton.SetActive(false);
+        FramesButton.SetActive(false);
         OrientationWindow.SetActive(true);
     }
 
@@ -78,6 +80,17 @@ public class FrameMenuUI : MonoBehaviour
         PopulateObjectList();
     }
 
+    public bool GetLandscape()
+    {
+        return landScape;
+    }
+
+    public void SetCustomFrame()
+    {
+        OrientationWindow.SetActive(false);
+        setCustomFrameWindow.enabled = true;
+    }
+
 
 
 
@@ -103,7 +116,7 @@ public class FrameMenuUI : MonoBehaviour
                 DestroyAllChildren();
                 FramesList.SetActive(false);
                 SetSpawnObject(index);
-                OptionsButton.SetActive(true);
+                FramesButton.SetActive(true);
             });
         }
     }

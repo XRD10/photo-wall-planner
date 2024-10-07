@@ -33,11 +33,24 @@ public class FrameMenuUI : MonoBehaviour
     //UI interactions
     public void OpenOrientationWindow()
     {
-        OptionsButton.SetActive(false);
+        HideOptions();
         OrientationWindow.SetActive(true);
     }
 
+    public void CloseOrientationWindow()
+    {
+        OrientationWindow.SetActive(false);
+    }
 
+    public void ShowOptions()
+    {
+        OptionsButton.SetActive(true);
+    }
+
+    public void HideOptions()
+    {
+        OptionsButton.SetActive(false);
+    }
 
     // Method to set the number of frames in the list
     private void SetNumberOfFrames()
@@ -59,6 +72,11 @@ public class FrameMenuUI : MonoBehaviour
         FrameSelection.AddRange(frameList);
     }
 
+    public bool isLandscape()
+    {
+        return landScape;
+    }
+
     public void SetLandscape()
     {
         landScape = true;
@@ -77,7 +95,6 @@ public class FrameMenuUI : MonoBehaviour
         FramesList.SetActive(true);
         PopulateObjectList();
     }
-
 
 
 
@@ -103,7 +120,7 @@ public class FrameMenuUI : MonoBehaviour
                 DestroyAllChildren();
                 FramesList.SetActive(false);
                 SetSpawnObject(index);
-                OptionsButton.SetActive(true);
+                ShowOptions();
             });
         }
     }

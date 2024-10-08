@@ -1,11 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\photo-wall-planner",
-    "\\photo-wall-planner\\Assets",
-    "\\photo-wall-planner\\Assets\\MobileARTemplateAssets",
-    "\\photo-wall-planner\\Assets\\MobileARTemplateAssets\\Scripts"
+    ""
   ],
-  "SelectedNode": "\\photo-wall-planner\\Assets\\MobileARTemplateAssets\\Scripts\\GoalManager.cs",
   "PreviewInSolutionExplorer": false
 }

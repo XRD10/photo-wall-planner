@@ -9,7 +9,7 @@ public class MoveObject : PressInputBase
 {
     [SerializeField] private ARRaycastManager raycastManager;
     private static readonly List<ARRaycastHit> _hits = new();
-    private readonly string targetTag = Tag.Placable.ToString();  
+    private readonly string targetTag = "Placable";
     
     private bool isDragging = false;      
     private Transform objectToMove;       

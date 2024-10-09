@@ -38,38 +38,59 @@ public class SaveManager : MonoBehaviour
 		ss.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 		ss.Apply();
 
-		string filePath = Path.Combine(GetAndroidExternalStoragePath(), "Export-" + timeStamp + ".png");
-
+		string filePath = GetScreenshotPath(timeStamp);
 		File.WriteAllBytes(filePath, ss.EncodeToPNG());
 
-		// Notify the gallery about the new file
-#if UNITY_ANDROID
-		AndroidJavaClass mediaScanner = new AndroidJavaClass("android.media.MediaScannerConnection");
-		AndroidJavaClass playerActivity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-		AndroidJavaObject activity = playerActivity.GetStatic<AndroidJavaObject>("currentActivity");
-		mediaScanner.CallStatic("scanFile", activity, new string[] { filePath }, null, null);
-#endif
+		// Notify gallery only on Android
+		#if UNITY_ANDROID && !UNITY_EDITOR
+            NotifyAndroidGallery(filePath);
+		#endif
 
-		Debug.Log($"Screenshot saved to gallery: {filePath}");
+		Debug.Log($"Screenshot saved to: {filePath}");
 		Destroy(ss);
+	}
+
+	private string GetScreenshotPath(string timeStamp)
+	{
+		string folderPath;
+		string fileName = "Export-" + timeStamp + ".png";
+
+		#if UNITY_ANDROID && !UNITY_EDITOR
+            folderPath = GetAndroidExternalStoragePath();
+		#elif UNITY_IOS && !UNITY_EDITOR
+            folderPath = Application.persistentDataPath;
+		#else
+		// For editor and other platforms, save to application data folder
+		folderPath = Path.Combine(
+			 System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData),
+			 "PhotoWallPlanner"
+		);
+		#endif
+
+		// Ensure directory exists
+		if (!Directory.Exists(folderPath))
+		{
+			Directory.CreateDirectory(folderPath);
+		}
+
+		return Path.Combine(folderPath, fileName);
 	}
 
 	private string GetAndroidExternalStoragePath()
 	{
-		if (Application.platform != RuntimePlatform.Android)
-			return Application.persistentDataPath;
-
 		var jc = new AndroidJavaClass("android.os.Environment");
 		var path = jc.CallStatic<AndroidJavaObject>("getExternalStoragePublicDirectory",
 			 jc.GetStatic<string>("DIRECTORY_DCIM"))
 			 .Call<string>("getAbsolutePath");
+		return Path.Combine(path, "PhotoWallPlanner");
+	}
 
-		path = Path.Combine(path, "PhotoWallPlanner");
-		if (!Directory.Exists(path))
-		{
-			Directory.CreateDirectory(path);
-		}
-		return path;
+	private void NotifyAndroidGallery(string filePath)
+	{
+		AndroidJavaClass mediaScanner = new AndroidJavaClass("android.media.MediaScannerConnection");
+		AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer")
+			 .GetStatic<AndroidJavaObject>("currentActivity");
+		mediaScanner.CallStatic("scanFile", activity, new string[] { filePath }, null, null);
 	}
 
 

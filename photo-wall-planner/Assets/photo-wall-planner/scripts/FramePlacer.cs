@@ -45,6 +45,7 @@ public class FramePlacer : PressInputBase
 
         float yRotation = frames.GetLandscape() ? 0f : 90f;
         instance.transform.Rotate(0, yRotation, 0, Space.Self);
+        instance.tag = "Placable";
        
     }
 

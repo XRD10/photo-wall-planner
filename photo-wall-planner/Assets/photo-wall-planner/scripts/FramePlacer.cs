@@ -28,6 +28,11 @@ public class FramePlacer : PressInputBase
 
         if (Physics.Raycast(ray, out RaycastHit hitObject))
             if (hitObject.transform.CompareTag("Placable")) return;
+        if(objectToPlace == null)
+        {
+            Debug.LogError("No object selected");
+            return;
+        }
 
         PlaceFrame();
         

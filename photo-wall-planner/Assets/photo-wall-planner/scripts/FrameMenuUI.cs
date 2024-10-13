@@ -14,7 +14,7 @@ public class FrameMenuUI : MonoBehaviour
     [SerializeField]
     List<GameObject> p_FrameObjects = new List<GameObject>();
     [SerializeField]
-    List<GameObject> ls_FrameObjects = new List<GameObject>();
+    List<GameObject> ls_FrameObjects = new List<GameObject>(); //HERE we set images
     [SerializeField]
     public GameObject FrameToSpawn;
     [SerializeField]
@@ -26,6 +26,8 @@ public class FrameMenuUI : MonoBehaviour
     private GameObject FramesList;
     [SerializeField]
     private Canvas setCustomFrameWindow;
+    [SerializeField]
+    private Canvas galleryMenu;
     [SerializeField]
     private List<GameObject> FrameSelection = new List<GameObject>();
 
@@ -114,8 +116,10 @@ public class FrameMenuUI : MonoBehaviour
             {
                 DestroyAllChildren();
                 FramesList.SetActive(false);
-                SetSpawnObject(index);
+                SetSpawnObject(index); //Here we SET
                 FramesButton.SetActive(true);
+                galleryMenu.gameObject.SetActive(true);
+
             });
         }
     }

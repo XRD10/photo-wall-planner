@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +38,7 @@ public class FrameMenuUI : MonoBehaviour
         OrientationWindow.SetActive(true);
     }
 
-
+    
 
     // Method to set the number of frames in the list
     private void SetNumberOfFrames()

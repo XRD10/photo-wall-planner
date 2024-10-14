@@ -8,6 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1823080369274121774, guid: e0b239b7e7e3dc644a5266e3b5717767,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 26.776304
+      objectReference: {fileID: 0}
+    - target: {fileID: 1823080369274121774, guid: e0b239b7e7e3dc644a5266e3b5717767,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 26.776304
+      objectReference: {fileID: 0}
+    - target: {fileID: 1823080369274121774, guid: e0b239b7e7e3dc644a5266e3b5717767,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3614462843798758815, guid: e0b239b7e7e3dc644a5266e3b5717767,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -63,7 +78,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: 50x60 LS
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 9101253366811042476, guid: e0b239b7e7e3dc644a5266e3b5717767,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.0065280027
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101253366811042476, guid: e0b239b7e7e3dc644a5266e3b5717767,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.0000010000132
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101253366811042476, guid: e0b239b7e7e3dc644a5266e3b5717767,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101253366811042476, guid: e0b239b7e7e3dc644a5266e3b5717767,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5000505629936407844, guid: e0b239b7e7e3dc644a5266e3b5717767, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

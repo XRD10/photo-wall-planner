@@ -2859,9 +2859,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426425c785105497db5843c53905bd74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentObject: {fileID: 6506067314281045999, guid: 60060a6a2610ea342be026653ac574c6,
-    type: 3}
   choosePictureButton: {fileID: 388815332}
+  frameMenuUI: {fileID: 974823095}
 --- !u!114 &1533075315
 MonoBehaviour:
   m_ObjectHideFlags: 0

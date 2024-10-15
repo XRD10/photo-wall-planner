@@ -7,6 +7,7 @@ TagManager:
   - Placable
   - Frame
   - Pyramid
+  - VisibleButton
   layers:
   - Default
   - TransparentFX

@@ -6,12 +6,15 @@ using UnityEngine.XR.ARSubsystems;
 
 public class WorkingAreaManager : PressInputBase
 {
+	public float minSize = 0.5f;
+	public float maxSize = 5f;
+	public bool isWorkingAreaEditingComplete = false;
+
+
 	[SerializeField] private ARRaycastManager raycastManager;
 	[SerializeField] private GameObject workingAreaPlanePrefab;
 	[SerializeField] private Camera arCamera;
-
-	public float minSize = 0.5f;
-	public float maxSize = 5f;
+	[SerializeField] private GameObject CompleteButton;
 
 	private GameObject workingAreaPlane;
 	private static readonly List<ARRaycastHit> _hits = new List<ARRaycastHit>();
@@ -19,7 +22,6 @@ public class WorkingAreaManager : PressInputBase
 	private bool isResizing = false;
 	private float initialTouchDistance;
 	private Vector3 initialScale;
-	public bool isWorkingAreaEditingComplete = false;
 
 	protected override void OnPressBegan(Vector3 position)
 	{
@@ -58,9 +60,16 @@ public class WorkingAreaManager : PressInputBase
 
 		if (workingAreaPlane == null)
 		{
+			CompleteButton.SetActive(true);
 			workingAreaPlane = Instantiate(workingAreaPlanePrefab, adjustedPosition, planeRotation);
 			workingAreaPlane.name = "WorkingArea";
 			workingAreaPlane.tag = "Placable";
+
+			// Add a BoxCollider (or any collider) dynamically
+			BoxCollider boxCollider = workingAreaPlane.AddComponent<BoxCollider>();
+
+			// Optionally, adjust the size of the collider if needed
+			boxCollider.size = new Vector3(1f, 0.01f, 1f);
 		}
 		else
 		{
@@ -110,7 +119,17 @@ public class WorkingAreaManager : PressInputBase
 	{
 		isWorkingAreaEditingComplete = true;
 		Debug.Log("Working area editing completed.");
-		workingAreaPlane.tag = null;
+		workingAreaPlane.tag = "Untagged";
+		CompleteButton.SetActive(false);
+
+		// TODO find out why this is not working
+		GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("VisibleButton");
+
+		foreach (GameObject obj in objectsWithTag)
+		{
+			Debug.Log(obj.name);
+			obj.SetActive(true);
+		}
 	}
 
 	public bool IsEditingComplete()

@@ -53,11 +53,19 @@ public class FramePlacer : PressInputBase
         instance.tag = "Placable";
        
     }
-    public GameObject GetPlacedObject()
+
+    public GameObject PlaceCustomFrame(float sizeX, float sizeZ)
     {
-        return objectToPlace;
+        //from cm to unity units (m)
+        sizeX /= 100;
+        sizeZ /= 100;   
+
+        var hitpose = _hits[0].pose;
+
+        GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
+        instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
+        return instance;
     }
 
-
-   
+    
 }

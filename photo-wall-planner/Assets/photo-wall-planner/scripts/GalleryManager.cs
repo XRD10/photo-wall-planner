@@ -18,7 +18,7 @@ public class GalleryManager : MonoBehaviour
     {
 
       
-            frameToSpawn = frameManager.GetComponent<FramePlacer>().GetPlacedObject();  /
+            // frameToSpawn = frameManager.GetComponent<FramePlacer>().GetPlacedObject();  
 
             imageObject = frameToSpawn.transform.Find("Image").gameObject;
             frameObject = frameToSpawn.transform.Find("Frame").gameObject;

@@ -3279,7 +3279,7 @@ MonoBehaviour:
   maxSize: 5
   isWorkingAreaEditingComplete: 0
   raycastManager: {fileID: 1340727327}
-  workingAreaPlanePrefab: {fileID: 2060413410451153038, guid: 548a12cfa5e584812a4345b60818c1da,
+  workingAreaPlanePrefab: {fileID: 4958262163857876547, guid: b869d348d8684463b820601fbf4b04f1,
     type: 3}
   arCamera: {fileID: 1360256773}
   CompleteButton: {fileID: 170279079}
@@ -3734,7 +3734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1764314028
 RectTransform:
   m_ObjectHideFlags: 0

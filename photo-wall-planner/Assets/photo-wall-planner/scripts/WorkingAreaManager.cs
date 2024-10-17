@@ -55,7 +55,9 @@ public class WorkingAreaManager : PressInputBase
 	{
 		var hitpose = _hits[0].pose;
 
-		Quaternion planeRotation = Quaternion.FromToRotation(Vector3.up, hitpose.up);
+
+		Quaternion planeRotation = Quaternion.LookRotation(hitpose.up, Camera.main.transform.up);
+		planeRotation *= Quaternion.Euler(0, -90f, 0f);
 		Vector3 adjustedPosition = hitpose.position + hitpose.up * 0.01f;
 
 		if (workingAreaPlane == null)
@@ -64,17 +66,12 @@ public class WorkingAreaManager : PressInputBase
 			workingAreaPlane = Instantiate(workingAreaPlanePrefab, adjustedPosition, planeRotation);
 			workingAreaPlane.name = "WorkingArea";
 			workingAreaPlane.tag = "Placable";
-
-			// Add a BoxCollider (or any collider) dynamically
-			BoxCollider boxCollider = workingAreaPlane.AddComponent<BoxCollider>();
-
-			// Optionally, adjust the size of the collider if needed
-			boxCollider.size = new Vector3(1f, 0.01f, 1f);
 		}
 		else
 		{
 			workingAreaPlane.transform.SetPositionAndRotation(adjustedPosition, planeRotation);
 		}
+
 	}
 
 	void HandlePinchToResize()
@@ -87,6 +84,7 @@ public class WorkingAreaManager : PressInputBase
 			isResizing = true;
 			initialTouchDistance = Vector2.Distance(touch0.position, touch1.position);
 			initialScale = workingAreaPlane.transform.localScale;
+
 		}
 		else if (touch0.phase == TouchPhase.Moved || touch1.phase == TouchPhase.Moved)
 		{
@@ -123,6 +121,7 @@ public class WorkingAreaManager : PressInputBase
 		CompleteButton.SetActive(false);
 
 		// TODO find out why this is not working
+		// because the objects are not active
 		GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("VisibleButton");
 
 		foreach (GameObject obj in objectsWithTag)
@@ -135,5 +134,37 @@ public class WorkingAreaManager : PressInputBase
 	public bool IsEditingComplete()
 	{
 		return isWorkingAreaEditingComplete;
+	}
+
+	public bool IsPointInsideWorkingArea(Vector3 point)
+	{
+		Debug.Log(point);
+		if (workingAreaPlane == null || !isWorkingAreaEditingComplete)
+		{
+			return false;
+		}
+
+		Quaternion rotationXZ = Quaternion.Euler(
+				workingAreaPlane.transform.rotation.eulerAngles.x,
+				0f,
+				workingAreaPlane.transform.rotation.eulerAngles.z
+		  );
+
+		// Convert the point to local space of the working area, ignoring Y rotation
+		Vector3 localPoint = Quaternion.Inverse(rotationXZ) * (point - workingAreaPlane.transform.position);
+
+		// Check if the point is within the bounds of the working area
+		float halfWidth = workingAreaPlane.transform.localScale.x / 2f;
+		float halfLength = workingAreaPlane.transform.localScale.z / 2f;
+
+		bool isInside = localPoint.x >= -halfWidth && localPoint.x <= halfWidth &&
+							 localPoint.z >= -halfLength && localPoint.z <= halfLength;
+
+		Debug.Log($"Point: {point}, Local Point: {localPoint}");
+		Debug.Log($"Working Area Size: Width = {workingAreaPlane.transform.localScale.x}, Length = {workingAreaPlane.transform.localScale.z}");
+		Debug.Log($"Is Inside: {isInside}");
+		Debug.Log($"Bounds: X ({-halfWidth} to {halfWidth}), Z ({-halfLength} to {halfLength})");
+
+		return isInside;
 	}
 }

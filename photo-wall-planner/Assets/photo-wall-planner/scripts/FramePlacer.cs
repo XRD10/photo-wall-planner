@@ -47,6 +47,12 @@ public class FramePlacer : PressInputBase
 			return;
 		}
 
+		if (!workingAreaManager.IsPointInsideWorkingArea(_hits[0].pose.position))
+		{
+			Debug.LogError("Cannot place frame outside the working area");
+			return;
+		}
+
 		PlaceFrame();
 
 
@@ -75,6 +81,12 @@ public class FramePlacer : PressInputBase
 		sizeZ /= 100;
 
 		var hitpose = _hits[0].pose;
+
+		if (!workingAreaManager.IsPointInsideWorkingArea(hitpose.position))
+		{
+			Debug.LogWarning("Cannot place custom frame outside the working area");
+			return;
+		}
 
 		GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
 		instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);

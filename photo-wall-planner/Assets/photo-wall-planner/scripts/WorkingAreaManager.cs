@@ -6,10 +6,6 @@ using UnityEngine.XR.ARSubsystems;
 
 public class WorkingAreaManager : PressInputBase
 {
-	public float minSize = 0.5f;
-	public float maxSize = 5f;
-	public bool isWorkingAreaEditingComplete = false;
-
 
 	[SerializeField] private ARRaycastManager raycastManager;
 	[SerializeField] private GameObject workingAreaPlanePrefab;
@@ -22,6 +18,9 @@ public class WorkingAreaManager : PressInputBase
 	private bool isResizing = false;
 	private float initialTouchDistance;
 	private Vector3 initialScale;
+	private float minSize = 0.5f;
+	private float maxSize = 5f;
+	private bool isWorkingAreaEditingComplete = false;
 
 	protected override void OnPressBegan(Vector3 position)
 	{
@@ -159,5 +158,20 @@ public class WorkingAreaManager : PressInputBase
 							 localPoint.z >= -halfLength && localPoint.z <= halfLength;
 
 		return isInside;
+	}
+
+	public Vector3 GetWorkingAreaCenter()
+	{
+		return workingAreaPlane.transform.position;
+	}
+
+	public Vector3 GetWorkingAreaSize()
+	{
+		return workingAreaPlane.transform.localScale;
+	}
+
+	public Quaternion GetWorkingAreaRotation()
+	{
+		return workingAreaPlane.transform.rotation;
 	}
 }

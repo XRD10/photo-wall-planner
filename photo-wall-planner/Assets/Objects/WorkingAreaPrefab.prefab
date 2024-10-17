@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6532866645317164938}
   - component: {fileID: 2050775029459218069}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: WorkingAreaPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

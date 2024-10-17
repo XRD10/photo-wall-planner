@@ -35,7 +35,6 @@ public class WorkingAreaManager : PressInputBase
 		ray = arCamera.ScreenPointToRay(position);
 		if (Physics.Raycast(ray, out RaycastHit hitObject))
 		{
-			// Use string comparison instead of CompareTag
 			if (hitObject.transform.gameObject.name == "WorkingArea") return;
 		}
 
@@ -55,21 +54,20 @@ public class WorkingAreaManager : PressInputBase
 	{
 		var hitpose = _hits[0].pose;
 
-
-		Quaternion planeRotation = Quaternion.LookRotation(hitpose.up, Camera.main.transform.up);
-		planeRotation *= Quaternion.Euler(0, -90f, 0f);
-		Vector3 adjustedPosition = hitpose.position + hitpose.up * 0.01f;
-
+		// reference: https://discussions.unity.com/t/arfoundation-vertical-plane-recognition-position-rotation-on-plane-normal/786665
+		Vector3 normal = -hitpose.up;
+		Quaternion planeRotation = Quaternion.LookRotation(normal, Vector3.up);
 		if (workingAreaPlane == null)
 		{
+
 			CompleteButton.SetActive(true);
-			workingAreaPlane = Instantiate(workingAreaPlanePrefab, adjustedPosition, planeRotation);
+			workingAreaPlane = Instantiate(workingAreaPlanePrefab, hitpose.position, planeRotation);
 			workingAreaPlane.name = "WorkingArea";
 			workingAreaPlane.tag = "Placable";
 		}
 		else
 		{
-			workingAreaPlane.transform.SetPositionAndRotation(adjustedPosition, planeRotation);
+			workingAreaPlane.transform.SetPositionAndRotation(hitpose.position, planeRotation);
 		}
 
 	}
@@ -159,11 +157,6 @@ public class WorkingAreaManager : PressInputBase
 
 		bool isInside = localPoint.x >= -halfWidth && localPoint.x <= halfWidth &&
 							 localPoint.z >= -halfLength && localPoint.z <= halfLength;
-
-		Debug.Log($"Point: {point}, Local Point: {localPoint}");
-		Debug.Log($"Working Area Size: Width = {workingAreaPlane.transform.localScale.x}, Length = {workingAreaPlane.transform.localScale.z}");
-		Debug.Log($"Is Inside: {isInside}");
-		Debug.Log($"Bounds: X ({-halfWidth} to {halfWidth}), Z ({-halfLength} to {halfLength})");
 
 		return isInside;
 	}

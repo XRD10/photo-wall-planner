@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "com.merry-yellow.code-assist": {
-      "version": "file:com.merry-yellow.code-assist",
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
       "depth": 0,
-      "source": "embedded",
+      "source": "builtin",
       "dependencies": {}
     },
     "com.unity.burst": {

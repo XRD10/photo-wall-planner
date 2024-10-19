@@ -57,6 +57,7 @@ public class FramePlacer : PressInputBase
 
         float yRotation = frames.GetLandscape() ? 0f : 90f;
         instance.transform.Rotate(0, yRotation, 0, Space.Self);
+        SetText(instance, instance.transform.localScale.z, instance.transform.localScale.x);
         instance.tag = "Placable";
        
     }
@@ -74,6 +75,7 @@ public class FramePlacer : PressInputBase
         GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
         instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
         SetText(instance, sizeZ, sizeX);
+
         
     }
 

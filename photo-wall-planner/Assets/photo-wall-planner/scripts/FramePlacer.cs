@@ -58,6 +58,7 @@ public class FramePlacer : PressInputBase
         float yRotation = frames.GetLandscape() ? 0f : 90f;
         instance.transform.Rotate(0, yRotation, 0, Space.Self);
         instance.tag = "Placable";
+        SetText(instance, instance.transform.localScale.z, instance.transform.localScale.x);
        
     }
 
@@ -72,8 +73,9 @@ public class FramePlacer : PressInputBase
         
 
         GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
+        instance.tag = "Placable";
         instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
-        SetText(instance, sizeZ, sizeX);
+        SetText(instance, instance.transform.localScale.z, instance.transform.localScale.x);
         
     }
 
@@ -82,7 +84,7 @@ public class FramePlacer : PressInputBase
         if (frame == null) return;
 
         Vector3 parentScale = frame.transform.lossyScale;
-        Vector3 inverseScale = new Vector3((x / parentScale.x)*4, 4f, y / parentScale.z);
+        Vector3 inverseScale = new Vector3((y / parentScale.x)*10, (y / parentScale.x) * 10, x / parentScale.z);
 
         GameObject xText = new GameObject("XText");
 
@@ -95,7 +97,7 @@ public class FramePlacer : PressInputBase
         xTextMesh.alignment = TextAlignmentOptions.Center;
 
         xText.transform.localScale = inverseScale;
-        xText.transform.localPosition = new Vector3(0.08f, 0.22f, 0);
+        xText.transform.localPosition = new Vector3(0.6f, 0.8f, 0);
         xText.transform.localRotation = Quaternion.Euler(90,-90,0);
         
         GameObject yText = new GameObject("YText");
@@ -108,7 +110,7 @@ public class FramePlacer : PressInputBase
         yTextMesh.alignment= TextAlignmentOptions.Center;
 
         yText.transform.localScale = inverseScale;
-        yText.transform.localPosition = new Vector3(0, 0.22f, -0.08f);
+        yText.transform.localPosition = new Vector3(0, 0.8f, -0.6f);
         yText.transform.localRotation = Quaternion.Euler(90, -90, 90);
 
     }

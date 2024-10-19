@@ -30,6 +30,7 @@ public class FrameMenuUI : MonoBehaviour
     private Canvas galleryMenu;
     [SerializeField]
     private List<GameObject> FrameSelection = new List<GameObject>();
+    private  GameObject instance;
 
     private bool landScape = false;
 
@@ -52,7 +53,11 @@ public class FrameMenuUI : MonoBehaviour
     //Passed to FramePlacer
     public GameObject GetFrame()
     {
-        return FrameToSpawn;
+        instance = Instantiate(FrameToSpawn, Vector3.zero, Quaternion.identity);
+
+        // Set the whole GameObject inactive (it won't be visible or interactable)
+        instance.SetActive(false);
+        return instance;
     }
 
     public void SetFrameSelection(List<GameObject> frameList)
@@ -117,7 +122,7 @@ public class FrameMenuUI : MonoBehaviour
                 DestroyAllChildren();
                 FramesList.SetActive(false);
                 SetSpawnObject(index); //Here we SET
-                FramesButton.SetActive(true);
+                FramesButton.SetActive(true); 
                 galleryMenu.gameObject.SetActive(true);
 
             });

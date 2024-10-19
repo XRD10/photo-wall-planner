@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,28 +9,22 @@ public class GalleryManager : MonoBehaviour
 
     private GameObject imageObject;
 
-    private GameObject frameObject;
+    private GameObject  frameObject;
 
-    public GameObject frameManager;
     private SpriteRenderer spriteRenderer;
     private GameObject frameToSpawn;
+    [SerializeField] private FrameMenuUI frameMenuUI;
+
+
 
     void Start()
     {
-
-      
-            // frameToSpawn = frameManager.GetComponent<FramePlacer>().GetPlacedObject();  
-
-            imageObject = frameToSpawn.transform.Find("Image").gameObject;
-            frameObject = frameToSpawn.transform.Find("Frame").gameObject;
-
-            spriteRenderer = imageObject.GetComponent<SpriteRenderer>();
-            if (spriteRenderer == null)
-            {
-                Debug.LogError("The child object 'Image' does not contain a SpriteRenderer component.");
-            }
+           
+            // if (spriteRenderer == null)
+            // {
+            //     Debug.LogError("The child object 'Image' does not contain a SpriteRenderer component.");
+            // }
        
-
         if (choosePictureButton != null)
         {
             choosePictureButton.onClick.AddListener(OpenGallery);
@@ -42,6 +37,11 @@ public class GalleryManager : MonoBehaviour
 
    public void OpenGallery()
     {
+    frameToSpawn = frameMenuUI.GetFrame();
+    // imageObject = frameToSpawn.transform.Find("Image").gameObject;
+    // frameObject = frameToSpawn.transform.Find("Frame").gameObject;
+    // spriteRenderer = imageObject.GetComponent<SpriteRenderer>();
+    Debug.Log(frameToSpawn);
   
     if (imageObject == null || spriteRenderer == null)
     {

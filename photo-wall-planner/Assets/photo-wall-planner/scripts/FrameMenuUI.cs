@@ -53,11 +53,7 @@ public class FrameMenuUI : MonoBehaviour
     //Passed to FramePlacer
     public GameObject GetFrame()
     {
-        instance = Instantiate(FrameToSpawn, Vector3.zero, Quaternion.identity);
-
-        // Set the whole GameObject inactive (it won't be visible or interactable)
-        instance.SetActive(false);
-        return instance;
+        return FrameToSpawn;
     }
 
     public void SetFrameSelection(List<GameObject> frameList)

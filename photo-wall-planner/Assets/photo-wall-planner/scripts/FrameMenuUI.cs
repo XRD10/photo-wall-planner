@@ -91,6 +91,7 @@ public class FrameMenuUI : MonoBehaviour
     {
         OrientationWindow.SetActive(false);
         setCustomFrameWindow.enabled = true;
+        Debug.Log("CUSTOM ONE");
     }
 
 

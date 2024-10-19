@@ -61,6 +61,8 @@ public class FramePlacer : PressInputBase
 
     public GameObject PlaceCustomFrame(float sizeX, float sizeZ)
     {
+        Debug.Log("CUSTOM TWO");
+
         //from cm to unity units (m)
         sizeX /= 100;
         sizeZ /= 100;
@@ -69,6 +71,8 @@ public class FramePlacer : PressInputBase
 
         instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
         instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
+        instance.tag = "Placable";
+        applyPicture();
         return instance;
     }
 
@@ -79,10 +83,6 @@ public class FramePlacer : PressInputBase
         SpriteRenderer spriteRenderer = imageObject.GetComponent<SpriteRenderer>();
         Boolean isLandscape = frames.GetLandscape();
         float scaleFactor;
-
-
-
-
 
         Texture2D texture = galleryManager.getPictureFromGallery();
         Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
@@ -96,6 +96,7 @@ public class FramePlacer : PressInputBase
 
         if (isLandscape)
         {
+            Debug.Log("TRUE");
             scaleFactor = targetSizeLandscape / currentSizeLandscape;
             imageObject.transform.localScale = new Vector3(scaleFactor * 0.9f, scaleFactor * 0.9f, 1);
         }

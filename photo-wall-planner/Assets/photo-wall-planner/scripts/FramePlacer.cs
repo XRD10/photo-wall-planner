@@ -87,24 +87,23 @@ public class FramePlacer : PressInputBase
         Texture2D texture = galleryManager.getPictureFromGallery();
         Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         spriteRenderer.sprite = newSprite;
-        float targetWidth = frameObject.GetComponent<SpriteRenderer>().bounds.size.z;
-        float targetHeight = frameObject.GetComponent<SpriteRenderer>().bounds.size.y;
-        float currentWidth = spriteRenderer.bounds.size.z;
-        float currentHeight = spriteRenderer.bounds.size.y;
-        Debug.Log("Target Height after placement: " + targetWidth);
-        
-        Debug.Log("Target Height after placement: " + targetHeight);
+
+        float targetSizePortrait = frameObject.GetComponent<SpriteRenderer>().bounds.size.z;
+        float currentSizePortrait = spriteRenderer.bounds.size.z;
+
+        float targetSizeLandscape = frameObject.GetComponent<SpriteRenderer>().bounds.size.y;
+        float currentSizeLandscape = spriteRenderer.bounds.size.y;
 
         if (isLandscape)
         {
-            scaleFactor = targetHeight / currentHeight;
-             imageObject.transform.localScale = new Vector3(scaleFactor * 0.9f, scaleFactor* 0.9f, 1);
+            scaleFactor = targetSizeLandscape / currentSizeLandscape;
+            imageObject.transform.localScale = new Vector3(scaleFactor * 0.9f, scaleFactor * 0.9f, 1);
         }
         else
         {
             Debug.Log("FALSE");
-            scaleFactor = targetWidth / currentWidth;
-             imageObject.transform.localScale = new Vector3(scaleFactor*0.6f , scaleFactor*0.6f, 1);
+            scaleFactor = targetSizePortrait / currentSizePortrait;
+            imageObject.transform.localScale = new Vector3(scaleFactor * 0.6f, scaleFactor * 0.6f, 1);
         }
         Debug.Log("THIS" + frameObject.GetComponent<SpriteRenderer>().bounds.size);
 

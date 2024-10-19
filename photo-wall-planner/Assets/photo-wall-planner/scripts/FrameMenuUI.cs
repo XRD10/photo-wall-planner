@@ -41,14 +41,11 @@ public class FrameMenuUI : MonoBehaviour
         OrientationWindow.SetActive(true);
     }
 
-
-
     // Method to set the number of frames in the list
     private void SetNumberOfFrames()
     {
         NumberOfFrames = landScape ? ls_FrameObjects.Count : p_FrameObjects.Count;
     }
-
 
     //Passed to FramePlacer
     public GameObject GetFrame()
@@ -91,11 +88,7 @@ public class FrameMenuUI : MonoBehaviour
     {
         OrientationWindow.SetActive(false);
         setCustomFrameWindow.enabled = true;
-        Debug.Log("CUSTOM ONE");
     }
-
-
-
 
     //Making buttons in the list
     void PopulateObjectList()

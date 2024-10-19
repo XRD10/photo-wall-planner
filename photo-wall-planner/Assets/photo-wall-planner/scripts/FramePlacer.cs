@@ -20,8 +20,6 @@ public class FramePlacer : PressInputBase
     private static readonly List<ARRaycastHit> _hits = new();
     private Ray ray;
 
-
-
     protected override void OnPressBegan(Vector3 position)
     {
         base.OnPressBegan(position);
@@ -61,8 +59,6 @@ public class FramePlacer : PressInputBase
 
     public GameObject PlaceCustomFrame(float sizeX, float sizeZ)
     {
-        Debug.Log("CUSTOM TWO");
-
         //from cm to unity units (m)
         sizeX /= 100;
         sizeZ /= 100;
@@ -96,23 +92,16 @@ public class FramePlacer : PressInputBase
 
         if (isLandscape)
         {
-            Debug.Log("TRUE");
             scaleFactor = targetSizeLandscape / currentSizeLandscape;
             imageObject.transform.localScale = new Vector3(scaleFactor * 0.9f, scaleFactor * 0.9f, 1);
         }
         else
         {
-            Debug.Log("FALSE");
             scaleFactor = targetSizePortrait / currentSizePortrait;
             imageObject.transform.localScale = new Vector3(scaleFactor * 0.6f, scaleFactor * 0.6f, 1);
         }
-        Debug.Log("THIS" + frameObject.GetComponent<SpriteRenderer>().bounds.size);
-
-        Debug.Log("Scale Factor after placement: " + scaleFactor);
 
         // Apply rotation to the image based on landscape or portrait mode
-        Debug.Log("Landscape" + frames.GetLandscape());
-
         float yRotation = isLandscape ? -90f : -180f;
         imageObject.transform.Rotate(0, 0, yRotation);
     }

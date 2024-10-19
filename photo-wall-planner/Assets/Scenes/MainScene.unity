@@ -1120,6 +1120,7 @@ MonoBehaviour:
   frames: {fileID: 974823095}
   setFrameSizesCanvas: {fileID: 755284095}
   arCamera: {fileID: 1360256773}
+  galleryManager: {fileID: 1533075314}
 --- !u!4 &710260146
 Transform:
   m_ObjectHideFlags: 0
@@ -2860,7 +2861,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choosePictureButton: {fileID: 388815332}
-  frameMenuUI: {fileID: 974823095}
 --- !u!114 &1533075315
 MonoBehaviour:
   m_ObjectHideFlags: 0

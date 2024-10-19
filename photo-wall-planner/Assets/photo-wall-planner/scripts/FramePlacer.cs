@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -71,25 +72,48 @@ public class FramePlacer : PressInputBase
         return instance;
     }
 
-    public void applyPicture()
-    {
-        Debug.Log("Apply",instance);
-        GameObject imageObject = instance.transform.Find("Image").gameObject;
-        GameObject frameObject = instance.transform.Find("Frame").gameObject;
-        SpriteRenderer spriteRenderer = imageObject.GetComponent<SpriteRenderer>();
+  public void applyPicture()
+{
+    StartCoroutine(WaitAndApplyPicture());
+}
 
-        float targetWidth = frameObject.GetComponent<SpriteRenderer>().bounds.size.x;
-        float targetHeight = frameObject.GetComponent<SpriteRenderer>().bounds.size.z;
+private IEnumerator WaitAndApplyPicture()
+{
+    // Wait until the frame object is fully placed (1 frame delay)
+    yield return new WaitForEndOfFrame();
 
-        Texture2D texture = galleryManager.getPictureFromGallery();
-        Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-        spriteRenderer.sprite = newSprite;
+    Debug.Log("Apply after frame placement", instance);
 
-        float currentWidth = spriteRenderer.bounds.size.x; // This is in world units
+    GameObject imageObject = instance.transform.Find("Image").gameObject;
+    GameObject frameObject = instance.transform.Find("Frame").gameObject;
+    SpriteRenderer spriteRenderer = imageObject.GetComponent<SpriteRenderer>();
 
-        float scaleFactor = targetWidth / currentWidth;
-        imageObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
-    }
+    float targetWidth = frameObject.GetComponent<SpriteRenderer>().bounds.size.x;
+    float targetHeight = frameObject.GetComponent<SpriteRenderer>().bounds.size.y;
+
+    Debug.Log("Target Width after placement: " + targetWidth);
+    Debug.Log("Target Height after placement: " + targetHeight);
+
+    Texture2D texture = galleryManager.getPictureFromGallery();
+    Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+    spriteRenderer.sprite = newSprite;
+
+    float currentWidth = spriteRenderer.bounds.size.x; 
+    float currentHeight = spriteRenderer.bounds.size.y; 
+
+    float scaleFactor = targetHeight / currentHeight;
+
+    Debug.Log("Scale Factor after placement: " + scaleFactor);
+    imageObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
+
+    // Apply rotation to the image based on landscape or portrait mode
+    Debug.Log("Landscape"+frames.GetLandscape());
+
+    float yRotation = frames.GetLandscape() ? -90f : -180f;
+    imageObject.transform.Rotate(0, 0, yRotation);
+}
+
+
 
 
 }

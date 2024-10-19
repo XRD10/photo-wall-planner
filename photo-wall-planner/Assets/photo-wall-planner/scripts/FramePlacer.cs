@@ -102,7 +102,7 @@ public class FramePlacer : PressInputBase
         }
 
         // Apply rotation to the image based on landscape or portrait mode
-        float yRotation = isLandscape ? -90f : -180f;
-        imageObject.transform.Rotate(0, 0, yRotation);
+        // float yRotation = isLandscape ? -90f : -180f;
+        // imageObject.transform.Rotate(0, 0, yRotation);
     }
 }

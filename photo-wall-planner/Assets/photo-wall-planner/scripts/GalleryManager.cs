@@ -5,7 +5,10 @@ using UnityEngine.UI;
 public class GalleryManager : MonoBehaviour
 {
 
-    public Button choosePictureButton;
+    [SerializeField]
+    private  Button choosePictureButton;
+    [SerializeField]
+    private  Canvas galleryMenu;
     private Texture2D texture; 
 
 
@@ -25,7 +28,7 @@ public class GalleryManager : MonoBehaviour
     public void OpenGallery()
     {
 
-        choosePictureButton.gameObject.SetActive(false);
+        galleryMenu.gameObject.SetActive(false);
         NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) =>
         {
             if (path != null)

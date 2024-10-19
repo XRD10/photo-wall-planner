@@ -2861,6 +2861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choosePictureButton: {fileID: 388815332}
+  galleryMenu: {fileID: 1533075313}
 --- !u!114 &1533075315
 MonoBehaviour:
   m_ObjectHideFlags: 0

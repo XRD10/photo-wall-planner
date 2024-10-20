@@ -93,7 +93,7 @@ public class FramePlacer : PressInputBase
         if (isLandscape)
         {
             scaleFactor = targetSizeLandscape / currentSizeLandscape;
-            imageObject.transform.localScale = new Vector3(scaleFactor * 0.9f, scaleFactor * 0.9f, 1);
+            imageObject.transform.localScale = new Vector3(scaleFactor * 0.6f, scaleFactor * 0.6f, 1);
         }
         else
         {

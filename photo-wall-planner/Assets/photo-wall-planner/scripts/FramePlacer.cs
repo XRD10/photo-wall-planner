@@ -90,32 +90,33 @@ public class FramePlacer : PressInputBase
         if (isLandscape)
         {
             targetSizeLandscape = frameObject.GetComponent<SpriteRenderer>().bounds.size.y;
-            // if (spriteRenderer.bounds.size.x > spriteRenderer.bounds.size.y)
-            // {
-            //     currentSizeLandscape = spriteRenderer.bounds.size.x;
-            // }
-            // else
-            // {
-            //     currentSizeLandscape = spriteRenderer.bounds.size.y;
-            // }
-            currentSizeLandscape = spriteRenderer.bounds.size.x;
-            scaleFactor = targetSizeLandscape / currentSizeLandscape;
-            imageObject.transform.localScale = new Vector3(scaleFactor * 0.6f, scaleFactor * 0.6f, 1);
+            Debug.Log(newSprite.bounds.size.x + " AND " + newSprite.bounds.size.y + " AND " + newSprite.bounds.size.x);
+
+            if (newSprite.bounds.size.x > newSprite.bounds.size.y)
+            {
+                currentSizeLandscape = spriteRenderer.bounds.size.y;
+                scaleFactor = targetSizeLandscape / currentSizeLandscape;
+                imageObject.transform.localScale = new Vector3(scaleFactor * 0.6f, scaleFactor * 0.6f, 1);
+            }
+            else
+            {
+                currentSizeLandscape = spriteRenderer.bounds.size.y;
+                scaleFactor = targetSizeLandscape / currentSizeLandscape;
+                imageObject.transform.localScale = new Vector3(scaleFactor * 0.8f, scaleFactor * 0.8f, 1);
+            }
+
         }
         else
         {
-            Debug.Log(newSprite.bounds.size.x + " AND " + newSprite.bounds.size.y + " AND " + newSprite.bounds.size.x);
             targetSizePortrait = frameObject.GetComponent<SpriteRenderer>().bounds.size.z;
             if (newSprite.bounds.size.x > newSprite.bounds.size.y)
             {
-                Debug.Log('A');
                 currentSizePortrait = spriteRenderer.bounds.size.z;
                 scaleFactor = targetSizePortrait / currentSizePortrait;
                 imageObject.transform.localScale = new Vector3(scaleFactor * 0.6f, scaleFactor * 0.6f, 1);
             }
             else
             {
-                Debug.Log('B');
                 currentSizePortrait = spriteRenderer.bounds.size.z;
                 targetSizePortrait = frameObject.GetComponent<SpriteRenderer>().bounds.size.z;
                 scaleFactor = targetSizePortrait / currentSizePortrait;

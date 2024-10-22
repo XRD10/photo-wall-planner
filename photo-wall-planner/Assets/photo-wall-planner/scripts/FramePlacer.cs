@@ -65,8 +65,6 @@ public class FramePlacer : PressInputBase
         sizeX /= 100;
         sizeZ /= 100;
 
-        Debug.Log("Placing custom frame with size: " + sizeX + "x" + sizeZ);
-
         var hitpose = _hits[0].pose;
 
         GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);

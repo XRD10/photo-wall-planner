@@ -18,6 +18,8 @@ public class FramePlacer : PressInputBase
     private GameObject instance;
     private static readonly List<ARRaycastHit> _hits = new();
     private Ray ray;
+    private Texture2D texture;
+    private GameObject previousObjectToPlace;
 
     protected override void OnPressBegan(Vector3 position)
     {
@@ -35,7 +37,6 @@ public class FramePlacer : PressInputBase
             Debug.LogError("No object selected");
             return;
         }
-
         PlaceFrame();
 
     }
@@ -44,16 +45,30 @@ public class FramePlacer : PressInputBase
         //from cm to unity units (m)
 
         var hitpose = _hits[0].pose;
+        // If the image from the gallery was not picked or if the frame sized was changed, then
+        if (galleryManager.gameObject.activeSelf)
+        {
+            texture = null;
+        }
+        texture = galleryManager.getPictureFromGallery();
+        Debug.Log(texture);
+        if (texture)
+        {
+            instance = Instantiate(objectToPlace, hitpose.position, Quaternion.identity);
+            instance.transform.localScale = new Vector3(objectToPlace.transform.localScale.x, objectToPlace.transform.localScale.y / 10, objectToPlace.transform.localScale.z);
+            instance.transform.up = hitpose.up;
+            float yRotation = frames.GetLandscape() ? 0f : 90f;
+            instance.transform.Rotate(0, yRotation, 0, Space.Self);
+            instance.tag = "Placable";
+            applyPicture();
+            // Store the current objectToPlace as the previous object
+            previousObjectToPlace = objectToPlace;
+        }
+        else
+        {
+            Debug.Log("Choose image from gallery");
+        }
 
-        instance = Instantiate(objectToPlace, hitpose.position, Quaternion.identity);
-        instance.transform.localScale = new Vector3(objectToPlace.transform.localScale.x, objectToPlace.transform.localScale.y / 10, objectToPlace.transform.localScale.z);
-
-        instance.transform.up = hitpose.up;
-
-        float yRotation = frames.GetLandscape() ? 0f : 90f;
-        instance.transform.Rotate(0, yRotation, 0, Space.Self);
-        instance.tag = "Placable";
-        applyPicture();
     }
 
     public GameObject PlaceCustomFrame(float sizeX, float sizeZ)
@@ -79,7 +94,6 @@ public class FramePlacer : PressInputBase
         Boolean isLandscape = frames.GetLandscape();
         float scaleFactor;
 
-        Texture2D texture = galleryManager.getPictureFromGallery();
         Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         float targetSizeLandscape;
         float currentSizeLandscape;

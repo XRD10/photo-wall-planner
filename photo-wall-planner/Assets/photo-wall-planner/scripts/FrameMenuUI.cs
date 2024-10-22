@@ -33,12 +33,16 @@ public class FrameMenuUI : MonoBehaviour
     private GameObject instance;
 
     private bool landScape = false;
+    private bool orientationWindowOpen = false;
 
     //UI interactions
     public void OpenOrientationWindow()
     {
+        Debug.Log("OPEN");
         FramesButton.SetActive(false);
         OrientationWindow.SetActive(true);
+        orientationWindowOpen = true;
+
     }
 
     // Method to set the number of frames in the list
@@ -66,6 +70,7 @@ public class FrameMenuUI : MonoBehaviour
         SetFrameSelection(ls_FrameObjects);
         // SetNumberOfFrames();
         OrientationWindow.SetActive(false);
+        orientationWindowOpen = false;
         FramesList.SetActive(true);
         PopulateObjectList();
     }
@@ -73,6 +78,7 @@ public class FrameMenuUI : MonoBehaviour
     {
         landScape = false;
         OrientationWindow.SetActive(false);
+        orientationWindowOpen = false;
         // SetNumberOfFrames();
         SetFrameSelection(p_FrameObjects);
         FramesList.SetActive(true);
@@ -87,6 +93,7 @@ public class FrameMenuUI : MonoBehaviour
     public void SetCustomFrame()
     {
         OrientationWindow.SetActive(false);
+        orientationWindowOpen = false;
         setCustomFrameWindow.enabled = true;
     }
 
@@ -137,5 +144,10 @@ public class FrameMenuUI : MonoBehaviour
         }
         Debug.LogError("Index error - Check object list");
         return;
+    }
+
+    public bool isOrientatioWindowOpen()
+    {
+        return orientationWindowOpen;
     }
 }

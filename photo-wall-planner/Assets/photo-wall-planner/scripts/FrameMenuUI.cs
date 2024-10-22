@@ -16,7 +16,9 @@ public class FrameMenuUI : MonoBehaviour
     [SerializeField]
     List<GameObject> ls_FrameObjects = new List<GameObject>();
     [SerializeField]
-    public GameObject FrameToSpawn;
+    public GameObject FrameToSpawn = null;
+    [SerializeField]
+    private GameObject customFrame;
     [SerializeField]
     public GameObject OrientationWindow;
     private int NumberOfFrames;
@@ -30,6 +32,9 @@ public class FrameMenuUI : MonoBehaviour
     private List<GameObject> FrameSelection = new List<GameObject>();
 
     private bool landScape = false;
+    private float sizeX;
+    private float sizeZ;
+    private bool isCustomFrame = false;
 
     //UI interactions
     public void OpenOrientationWindow()
@@ -38,19 +43,15 @@ public class FrameMenuUI : MonoBehaviour
         OrientationWindow.SetActive(true);
     }
 
-    
-
-    // Method to set the number of frames in the list
-    private void SetNumberOfFrames()
-    {
-        NumberOfFrames = landScape ? ls_FrameObjects.Count : p_FrameObjects.Count;
-    }
-
-
     //Passed to FramePlacer
     public GameObject GetFrame()
     {
         return FrameToSpawn;
+    }
+
+    public (float, float) GetCustomFrameSize()
+    {
+        return (sizeX, sizeZ);
     }
 
     public void SetFrameSelection(List<GameObject> frameList)
@@ -90,13 +91,10 @@ public class FrameMenuUI : MonoBehaviour
         setCustomFrameWindow.enabled = true;
     }
 
-
-
-
     //Making buttons in the list
     void PopulateObjectList()
     {
-        if ((NumberOfFrames <= 0 || (buttonPrefab == null)))
+        if (NumberOfFrames <= 0 || (buttonPrefab == null))
         {
             Debug.LogError("Objects error - Check object list" + NumberOfFrames);
             return;
@@ -129,14 +127,27 @@ public class FrameMenuUI : MonoBehaviour
     }
 
     //Selects the frame to be spawned
-    public void SetSpawnObject(int index)
+    private void SetSpawnObject(int index)
     {
         if (index >= 0 && index < NumberOfFrames)
         {
                 FrameToSpawn = FrameSelection[index];
+                isCustomFrame = false;
                 return;
         }
         Debug.LogError("Index error - Check object list");
         return;
+    }
+
+    public void SetCustomSpawnObject(float sizeX, float sizeZ)
+    {
+        FrameToSpawn = customFrame;
+        this.sizeX = sizeX;
+        this.sizeZ = sizeZ;
+        isCustomFrame = true;
+    }
+
+    public bool IsCustomFrame(){
+        return isCustomFrame;
     }
 }

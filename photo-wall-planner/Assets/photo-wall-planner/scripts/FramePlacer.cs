@@ -63,10 +63,12 @@ public class FramePlacer : PressInputBase
 
 		var hitpose = _hits[0].pose;
 
-		GameObject instance = Instantiate(objectToPlace, hitpose.position, Quaternion.identity);
+		GameObject instance = Instantiate(objectToPlace, hitpose.position + hitpose.up * 0.02f, Quaternion.identity);
 		instance.transform.localScale = new Vector3(objectToPlace.transform.localScale.x, objectToPlace.transform.localScale.y / 10, objectToPlace.transform.localScale.z);
 
 		instance.transform.up = hitpose.up;
+		Debug.Log(hitpose.up);
+		Debug.Log(instance.transform.up);
 
 		float yRotation = frames.GetLandscape() ? 0f : 90f;
 		instance.transform.Rotate(0, yRotation, 0, Space.Self);

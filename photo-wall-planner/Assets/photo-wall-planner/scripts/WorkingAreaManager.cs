@@ -56,17 +56,20 @@ public class WorkingAreaManager : PressInputBase
 		// reference: https://discussions.unity.com/t/arfoundation-vertical-plane-recognition-position-rotation-on-plane-normal/786665
 		Vector3 normal = -hitpose.up;
 		Quaternion planeRotation = Quaternion.LookRotation(normal, Vector3.up);
+
+		Vector3 adjustedPosition = hitpose.position + hitpose.up * 0.01f;
+
 		if (workingAreaPlane == null)
 		{
 
 			CompleteButton.SetActive(true);
-			workingAreaPlane = Instantiate(workingAreaPlanePrefab, hitpose.position, planeRotation);
+			workingAreaPlane = Instantiate(workingAreaPlanePrefab, adjustedPosition, planeRotation);
 			workingAreaPlane.name = "WorkingArea";
 			workingAreaPlane.tag = "Placable";
 		}
 		else
 		{
-			workingAreaPlane.transform.SetPositionAndRotation(hitpose.position, planeRotation);
+			workingAreaPlane.transform.SetPositionAndRotation(adjustedPosition, planeRotation);
 		}
 
 	}

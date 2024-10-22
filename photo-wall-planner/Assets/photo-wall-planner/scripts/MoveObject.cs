@@ -3,64 +3,64 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using UnityEngine.InputSystem;  
+using UnityEngine.InputSystem;
 
 public class MoveObject : PressInputBase
 {
-    [SerializeField] private ARRaycastManager raycastManager;
-    private static readonly List<ARRaycastHit> _hits = new();
-    private readonly string targetTag = "Placable";
-    
-    private bool isDragging = false;      
-    private Transform objectToMove;       
-    private TrackableId initialPlaneId;   
+	[SerializeField] private ARRaycastManager raycastManager;
+	private static readonly List<ARRaycastHit> _hits = new();
+	private readonly string targetTag = "Placable";
 
-    protected override void OnPress(Vector3 position)
-    {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
+	private bool isDragging = false;
+	private Transform objectToMove;
+	private TrackableId initialPlaneId;
 
-        if (raycastManager == null) return;
+	protected override void OnPress(Vector3 position)
+	{
+		if (EventSystem.current.IsPointerOverGameObject()) return;
 
-        if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
+		if (raycastManager == null) return;
 
-        var hitPose = _hits[0].pose;
-        var hitTrackableId = _hits[0].trackableId;
+		if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
 
-        Ray ray = new Ray(Camera.main.transform.position, hitPose.position - Camera.main.transform.position);
+		var hitPose = _hits[0].pose;
+		var hitTrackableId = _hits[0].trackableId;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100))
-        {
-            if (hit.transform.CompareTag(targetTag))
-            {
-                objectToMove = hit.transform;
-                isDragging = true; 
-                initialPlaneId = hitTrackableId;  
-            }
-        }
-    }
+		Ray ray = new Ray(Camera.main.transform.position, hitPose.position - Camera.main.transform.position);
 
-    private void Update()
-    {
-        if (isDragging)
-        {
-            Vector2 screenPosition = Pointer.current.position.ReadValue();
+		if (Physics.Raycast(ray, out RaycastHit hit, 100))
+		{
+			if (hit.transform.CompareTag(targetTag))
+			{
+				objectToMove = hit.transform;
+				isDragging = true;
+				initialPlaneId = hitTrackableId;
+			}
+		}
+	}
 
-            if (raycastManager.Raycast(screenPosition, _hits, TrackableType.PlaneWithinPolygon))
-            {
-                var hitPose = _hits[0].pose;
-                var hitTrackableId = _hits[0].trackableId;
+	private void Update()
+	{
+		if (isDragging)
+		{
+			Vector2 screenPosition = Pointer.current.position.ReadValue();
 
-                if (hitTrackableId == initialPlaneId)
-                {
-                    objectToMove.position = hitPose.position;  
-                }
-            }
+			if (raycastManager.Raycast(screenPosition, _hits, TrackableType.PlaneWithinPolygon))
+			{
+				var hitPose = _hits[0].pose;
+				var hitTrackableId = _hits[0].trackableId;
 
-            if (Pointer.current.press.isPressed == false)
-            {
-                isDragging = false;
-                objectToMove = null;
-            }
-        }
-    }
+				if (hitTrackableId == initialPlaneId)
+				{
+					objectToMove.position = hitPose.position + hitPose.up * 0.01f;
+				}
+			}
+
+			if (Pointer.current.press.isPressed == false)
+			{
+				isDragging = false;
+				objectToMove = null;
+			}
+		}
+	}
 }

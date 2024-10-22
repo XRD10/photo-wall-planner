@@ -12,7 +12,7 @@ public class FrameDistanceDisplay : MonoBehaviour
 	private void Update()
 	{
 		timeSinceLastUpdate += Time.deltaTime;
-		if (timeSinceLastUpdate >= updateInterval)
+		if (timeSinceLastUpdate >= updateInterval && workingAreaManager.IsEditingComplete())
 		{
 			UpdateDistances();
 			timeSinceLastUpdate = 0f;
@@ -35,11 +35,15 @@ public class FrameDistanceDisplay : MonoBehaviour
 			float distRight = (workingAreaSize.x / 2) - localPos.x;
 			float distFront = (workingAreaSize.z / 2) + localPos.z;
 			float distBack = (workingAreaSize.z / 2) - localPos.z;
+			float distTop = (workingAreaSize.y / 2) + localPos.y;
+			float distBottom = (workingAreaSize.y / 2) - localPos.y;
 
 			UpdateOrCreateDistanceText(frame, "DistLeft", distLeft, new Vector3(-1, 0, 0));
 			UpdateOrCreateDistanceText(frame, "DistRight", distRight, new Vector3(1, 0, 0));
 			UpdateOrCreateDistanceText(frame, "DistFront", distFront, new Vector3(0, 0, 1));
 			UpdateOrCreateDistanceText(frame, "DistBack", distBack, new Vector3(0, 0, -1));
+			UpdateOrCreateDistanceText(frame, "DistTop", distTop, new Vector3(0, 1, 0));
+			UpdateOrCreateDistanceText(frame, "DistBottom", distBottom, new Vector3(0, -1, 0));
 		}
 	}
 

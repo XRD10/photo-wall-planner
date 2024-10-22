@@ -35,19 +35,17 @@ public class FramePlacer : PressInputBase
 
         if (Physics.Raycast(ray, out RaycastHit hitObject))
             if (hitObject.transform.CompareTag("Placable")) return;
-        if(objectToPlace == null)
+
+        if (objectToPlace == null)
         {
-            Debug.LogError("No object selected");
+            Debug.Log("No object selected");
             return;
         }
 
         PlaceFrame();
-        
     }
     public void PlaceFrame()
     {
-        //from cm to unity units (m)
-
         var hitpose = _hits[0].pose;
 
         GameObject instance = Instantiate(objectToPlace, hitpose.position, Quaternion.identity);
@@ -58,7 +56,7 @@ public class FramePlacer : PressInputBase
         float yRotation = frames.GetLandscape() ? 0f : 90f;
         instance.transform.Rotate(0, yRotation, 0, Space.Self);
         instance.tag = "Placable";
-       
+
     }
 
     public void PlaceCustomFrame(float sizeX, float sizeZ)
@@ -69,12 +67,10 @@ public class FramePlacer : PressInputBase
 
         var hitpose = _hits[0].pose;
 
-        
-
         GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
         instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
+        instance.tag = "Placable";
         SetText(instance, sizeZ, sizeX);
-        
     }
 
     private void SetText(GameObject frame, float x, float y)
@@ -82,33 +78,34 @@ public class FramePlacer : PressInputBase
         if (frame == null) return;
 
         Vector3 parentScale = frame.transform.lossyScale;
-        Vector3 inverseScale = new Vector3((x / parentScale.x)*4, 4f, y / parentScale.z);
+        Vector3 inverseScale = new Vector3(x / parentScale.x * 4, 4f, y / parentScale.z);
 
         GameObject xText = new GameObject("XText");
-
-        xText.transform.SetParent(frame.transform,false);
+        xText.layer = LayerMask.NameToLayer("UI");
+        xText.transform.SetParent(frame.transform, false);
 
         TextMeshPro xTextMesh = xText.AddComponent<TextMeshPro>();
-        xTextMesh.text = (x*100).ToString() +"cm";
+        xTextMesh.text = (x * 100).ToString() + "cm";
         xTextMesh.color = Color.red;
         xTextMesh.fontSize = 0.1f;
         xTextMesh.alignment = TextAlignmentOptions.Center;
 
         xText.transform.localScale = inverseScale;
-        xText.transform.localPosition = new Vector3(0.08f, 0.22f, 0);
-        xText.transform.localRotation = Quaternion.Euler(90,-90,0);
-        
+        xText.transform.localPosition = new Vector3(0.49f, 3, 0);
+        xText.transform.localRotation = Quaternion.Euler(90, -90, 0);
+
         GameObject yText = new GameObject("YText");
+        yText.layer = LayerMask.NameToLayer("UI");
         yText.transform.SetParent(frame.transform, false);
 
         TextMeshPro yTextMesh = yText.AddComponent<TextMeshPro>();
-        yTextMesh.text = (y*100).ToString() + "cm";
+        yTextMesh.text = (y * 100).ToString() + "cm";
         yTextMesh.color = Color.red;
         yTextMesh.fontSize = 0.1f;
-        yTextMesh.alignment= TextAlignmentOptions.Center;
+        yTextMesh.alignment = TextAlignmentOptions.Center;
 
         yText.transform.localScale = inverseScale;
-        yText.transform.localPosition = new Vector3(0, 0.22f, -0.08f);
+        yText.transform.localPosition = new Vector3(0, 3, -0.49f);
         yText.transform.localRotation = Quaternion.Euler(90, -90, 90);
 
     }

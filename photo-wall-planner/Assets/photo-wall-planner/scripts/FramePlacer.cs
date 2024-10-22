@@ -93,9 +93,7 @@ public class FramePlacer : PressInputBase
         xTextMesh.alignment = TextAlignmentOptions.Center;
 
         xText.transform.localScale = inverseScale;
-        float xValue = frame.transform.localScale.x / 2;
-        float zValue = frame.transform.localScale.z / 2;
-        xText.transform.localPosition = new Vector3(xValue - 0.01f, 3, 0);
+        xText.transform.localPosition = new Vector3(0.49f, 3, 0);
         xText.transform.localRotation = Quaternion.Euler(90, -90, 0);
 
         GameObject yText = new GameObject("YText");
@@ -109,7 +107,7 @@ public class FramePlacer : PressInputBase
         yTextMesh.alignment = TextAlignmentOptions.Center;
 
         yText.transform.localScale = inverseScale;
-        yText.transform.localPosition = new Vector3(0, 3, -xValue + 0.01f);
+        yText.transform.localPosition = new Vector3(0, 3, -0.49f);
         yText.transform.localRotation = Quaternion.Euler(90, -90, 90);
 
     }

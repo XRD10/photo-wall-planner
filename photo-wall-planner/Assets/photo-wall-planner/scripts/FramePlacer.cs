@@ -82,23 +82,46 @@ public class FramePlacer : PressInputBase
 
         Texture2D texture = galleryManager.getPictureFromGallery();
         Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        float targetSizeLandscape;
+        float currentSizeLandscape;
+        float targetSizePortrait;
+        float currentSizePortrait;
         spriteRenderer.sprite = newSprite;
-
-        float targetSizePortrait = frameObject.GetComponent<SpriteRenderer>().bounds.size.z;
-        float currentSizePortrait = spriteRenderer.bounds.size.z;
-
-        float targetSizeLandscape = frameObject.GetComponent<SpriteRenderer>().bounds.size.y;
-        float currentSizeLandscape = spriteRenderer.bounds.size.y;
-
         if (isLandscape)
         {
+            targetSizeLandscape = frameObject.GetComponent<SpriteRenderer>().bounds.size.y;
+            // if (spriteRenderer.bounds.size.x > spriteRenderer.bounds.size.y)
+            // {
+            //     currentSizeLandscape = spriteRenderer.bounds.size.x;
+            // }
+            // else
+            // {
+            //     currentSizeLandscape = spriteRenderer.bounds.size.y;
+            // }
+            currentSizeLandscape = spriteRenderer.bounds.size.x;
             scaleFactor = targetSizeLandscape / currentSizeLandscape;
             imageObject.transform.localScale = new Vector3(scaleFactor * 0.6f, scaleFactor * 0.6f, 1);
         }
         else
         {
-            scaleFactor = targetSizePortrait / currentSizePortrait;
-            imageObject.transform.localScale = new Vector3(scaleFactor * 0.6f, scaleFactor * 0.6f, 1);
+            Debug.Log(newSprite.bounds.size.x + " AND " + newSprite.bounds.size.y + " AND " + newSprite.bounds.size.x);
+            targetSizePortrait = frameObject.GetComponent<SpriteRenderer>().bounds.size.z;
+            if (newSprite.bounds.size.x > newSprite.bounds.size.y)
+            {
+                Debug.Log('A');
+                currentSizePortrait = spriteRenderer.bounds.size.z;
+                scaleFactor = targetSizePortrait / currentSizePortrait;
+                imageObject.transform.localScale = new Vector3(scaleFactor * 0.6f, scaleFactor * 0.6f, 1);
+            }
+            else
+            {
+                Debug.Log('B');
+                currentSizePortrait = spriteRenderer.bounds.size.y;
+                targetSizePortrait = frameObject.GetComponent<SpriteRenderer>().bounds.size.y;
+                scaleFactor = targetSizePortrait / currentSizePortrait;
+                imageObject.transform.localScale = new Vector3(scaleFactor * 0.9f, scaleFactor * 0.9f, 1);
+            }
+
         }
 
         // Apply rotation to the image based on landscape or portrait mode

@@ -116,10 +116,10 @@ public class FramePlacer : PressInputBase
             else
             {
                 Debug.Log('B');
-                currentSizePortrait = spriteRenderer.bounds.size.y;
-                targetSizePortrait = frameObject.GetComponent<SpriteRenderer>().bounds.size.y;
+                currentSizePortrait = spriteRenderer.bounds.size.z;
+                targetSizePortrait = frameObject.GetComponent<SpriteRenderer>().bounds.size.z;
                 scaleFactor = targetSizePortrait / currentSizePortrait;
-                imageObject.transform.localScale = new Vector3(scaleFactor * 0.9f, scaleFactor * 0.9f, 1);
+                imageObject.transform.localScale = new Vector3(scaleFactor * 0.8f, scaleFactor * 0.8f, 1);
             }
 
         }

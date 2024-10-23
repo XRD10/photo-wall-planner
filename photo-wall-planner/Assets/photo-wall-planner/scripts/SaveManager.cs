@@ -6,8 +6,10 @@ using System.IO;
 // reference: https://stackoverflow.com/questions/60475027/unity-android-save-screenshot-in-gallery
 public class SaveManager : MonoBehaviour
 {
-	public GameObject button;
-	public GameObject iconButton;
+	[SerializeField] private GameObject button;
+	[SerializeField] private GameObject iconButton;
+	[SerializeField] private DistanceManager distanceManager;
+
 	public void SaveProject()
 	{
 		Debug.Log("Saving project...");
@@ -26,11 +28,15 @@ public class SaveManager : MonoBehaviour
 
 	public void TakeScreenshot()
 	{
+		// distanceManager.ToggleDistanceDisplay();
 		StartCoroutine(TakeScreenshotAndSave());
+		// distanceManager.ToggleDistanceDisplay();
 	}
 
 	private IEnumerator TakeScreenshotAndSave()
 	{
+		distanceManager.ToggleDistanceDisplay();
+
 		string timeStamp = System.DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
 		yield return new WaitForEndOfFrame();
 
@@ -42,11 +48,13 @@ public class SaveManager : MonoBehaviour
 		File.WriteAllBytes(filePath, ss.EncodeToPNG());
 
 		// Notify gallery only on Android
-		#if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
             NotifyAndroidGallery(filePath);
-		#endif
+#endif
 
 		Debug.Log($"Screenshot saved to: {filePath}");
+		distanceManager.ToggleDistanceDisplay();
+
 		Destroy(ss);
 	}
 
@@ -55,17 +63,17 @@ public class SaveManager : MonoBehaviour
 		string folderPath;
 		string fileName = "Export-" + timeStamp + ".png";
 
-		#if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
             folderPath = GetAndroidExternalStoragePath();
-		#elif UNITY_IOS && !UNITY_EDITOR
+#elif UNITY_IOS && !UNITY_EDITOR
             folderPath = Application.persistentDataPath;
-		#else
+#else
 		// For editor and other platforms, save to application data folder
 		folderPath = Path.Combine(
 			 System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData),
 			 "PhotoWallPlanner"
 		);
-		#endif
+#endif
 
 		// Ensure directory exists
 		if (!Directory.Exists(folderPath))

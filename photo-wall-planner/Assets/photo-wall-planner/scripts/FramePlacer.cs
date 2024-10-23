@@ -16,6 +16,7 @@ public class FramePlacer : PressInputBase
 	[SerializeField] private Canvas setFrameSizesCanvas;
 	[SerializeField] private Camera arCamera;
 	[SerializeField] private WorkingAreaManager workingAreaManager;
+	[SerializeField] private DistanceManager distanceManager;
 	private static readonly List<ARRaycastHit> _hits = new();
 	private Ray ray;
 
@@ -79,7 +80,7 @@ public class FramePlacer : PressInputBase
 		instance.transform.Rotate(0, yRotation, 0, Space.Self);
 		instance.tag = "Placable";
 
-		DisplayFrameDistances(instance);
+		distanceManager.AddFrame(instance);
 	}
 
 	public void PlaceCustomFrame(float sizeX, float sizeZ)
@@ -98,48 +99,49 @@ public class FramePlacer : PressInputBase
 
 		GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
 		instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
-		DisplayFrameDistances(instance);
 
+		distanceManager.AddFrame(instance);
 	}
 
-	private void DisplayFrameDistances(GameObject frame)
-	{
-		Vector3 framePosition = frame.transform.position;
+	// private void DisplayFrameDistances(GameObject frame)
+	// {
+	// 	Vector3 framePosition = frame.transform.position;
 
-		// Get working area bounds
-		Vector3 minBounds = workingAreaManager.GetWorkingAreaMinBounds();
-		Vector3 maxBounds = workingAreaManager.GetWorkingAreaMaxBounds();
+	// 	// Get working area bounds
+	// 	Vector3 minBounds = workingAreaManager.GetWorkingAreaMinBounds();
+	// 	Vector3 maxBounds = workingAreaManager.GetWorkingAreaMaxBounds();
 
-		// Calculate distances to each edge of the working area
-		float distanceToLeftEdge = Mathf.Abs(framePosition.x - minBounds.x);
-		float distanceToRightEdge = Mathf.Abs(maxBounds.x - framePosition.x);
-		// TODO not working
-		float distanceToTopEdge = Mathf.Abs(maxBounds.z - framePosition.z);
-		float distanceToBottomEdge = Mathf.Abs(framePosition.z - minBounds.z);
+	// 	// Calculate distances to each edge of the working area
+	// 	float distanceToLeftEdge = Mathf.Abs(framePosition.x - minBounds.x);
+	// 	float distanceToRightEdge = Mathf.Abs(maxBounds.x - framePosition.x);
+	// 	// TODO not working
+	// 	float distanceToTopEdge = Mathf.Abs(maxBounds.z - framePosition.z);
+	// 	float distanceToBottomEdge = Mathf.Abs(framePosition.z - minBounds.z);
 
-		Debug.Log("Frame Position: " + frame.transform.rotation.eulerAngles);
+	// 	Debug.Log("Frame Position: " + frame.transform.rotation.eulerAngles);
 
 
-		// Display the distances using TextMeshPro or UI elements
-		DisplayDistanceText(frame, distanceToLeftEdge, "LeftEdgeDistance", new Vector3(-0.7f, 0.3f, 0));
-		DisplayDistanceText(frame, distanceToRightEdge, "RightEdgeDistance", new Vector3(0.7f, 0.3f, 0));
-		DisplayDistanceText(frame, distanceToTopEdge, "TopEdgeDistance", new Vector3(0, 0.3f, 0.7f));
-		DisplayDistanceText(frame, distanceToBottomEdge, "BottomEdgeDistance", new Vector3(0, 0.3f, -0.7f));
-	}
+	// 	// Display the distances using TextMeshPro or UI elements
+	// 	CreateDistanceText(frame, distanceToLeftEdge, "LeftEdgeDistance", new Vector3(-0.7f, 0.3f, 0));
+	// 	CreateDistanceText(frame, distanceToRightEdge, "RightEdgeDistance", new Vector3(0.7f, 0.3f, 0));
+	// 	CreateDistanceText(frame, distanceToTopEdge, "TopEdgeDistance", new Vector3(0, 0.3f, 0.7f));
+	// 	CreateDistanceText(frame, distanceToBottomEdge, "BottomEdgeDistance", new Vector3(0, 0.3f, -0.7f));
+	// }
 
-	private void DisplayDistanceText(GameObject frame, float distance, string textObjectName, Vector3 localPosition)
-	{
-		GameObject distanceText = new GameObject(textObjectName);
-		distanceText.transform.SetParent(frame.transform, false);
+	// private void CreateDistanceText(GameObject frame, float distance, string textObjectName, Vector3 localPosition)
+	// {
+	// 	GameObject distanceText = new GameObject(textObjectName);
+	// 	distanceText.transform.SetParent(frame.transform, false);
 
-		TextMeshPro distanceTextMesh = distanceText.AddComponent<TextMeshPro>();
-		distanceTextMesh.text = (int)(distance * 100) + "cm";
-		distanceTextMesh.color = Color.red;
-		distanceTextMesh.fontSize = 1.5f;
-		distanceTextMesh.alignment = TextAlignmentOptions.Center;
+	// 	TextMeshPro distanceTextMesh = distanceText.AddComponent<TextMeshPro>();
+	// 	distanceTextMesh.text = (int)(distance * 100) + "cm";
+	// 	distanceTextMesh.color = Color.red;
+	// 	distanceTextMesh.fontSize = 1.5f;
+	// 	distanceTextMesh.alignment = TextAlignmentOptions.Center;
 
-		distanceText.transform.localScale = Vector3.one;
-		distanceText.transform.localPosition = localPosition;
-		distanceText.transform.localRotation = Quaternion.Euler(90, -90, 0);
-	}
+	// 	distanceText.transform.localScale = Vector3.one;
+	// 	distanceText.transform.localPosition = localPosition;
+	// 	distanceText.transform.localRotation = Quaternion.Euler(90, -90, 0);
+	// 	distanceText.SetActive(false);
+	// }
 }

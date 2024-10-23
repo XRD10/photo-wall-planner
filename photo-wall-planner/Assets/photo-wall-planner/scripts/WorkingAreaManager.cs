@@ -140,10 +140,8 @@ public class WorkingAreaManager : PressInputBase
 				workingAreaPlane.transform.rotation.eulerAngles.z
 		  );
 
-		// Convert the point to local space of the working area, ignoring Y rotation
 		Vector3 localPoint = Quaternion.Inverse(rotationXZ) * (point - workingAreaPlane.transform.position);
 
-		// Check if the point is within the bounds of the working area
 		float halfWidth = workingAreaPlane.transform.localScale.x / 2f;
 		float halfLength = workingAreaPlane.transform.localScale.z / 2f;
 
@@ -161,16 +159,5 @@ public class WorkingAreaManager : PressInputBase
 	public Vector3 GetWorkingAreaMaxBounds()
 	{
 		return workingAreaPlane.GetComponent<Renderer>().bounds.max;
-	}
-
-	private void SetActiveButtons(bool isActive)
-	{
-		GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("VisibleButton");
-
-		foreach (GameObject obj in objectsWithTag)
-		{
-			Debug.Log(obj.name);
-			obj.SetActive(isActive);
-		}
 	}
 }

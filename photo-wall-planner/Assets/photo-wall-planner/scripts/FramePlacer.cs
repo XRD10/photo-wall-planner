@@ -19,7 +19,6 @@ public class FramePlacer : PressInputBase
     private static readonly List<ARRaycastHit> _hits = new();
     private Ray ray;
     private Texture2D texture;
-    private GameObject previousObjectToPlace;
 
     protected override void OnPressBegan(Vector3 position)
     {
@@ -48,10 +47,9 @@ public class FramePlacer : PressInputBase
         // If the image from the gallery was not picked or if the frame sized was changed, then
         if (galleryManager.gameObject.activeSelf)
         {
-            texture = null;
+            galleryManager.setPictureFromGallery(null);
         }
         texture = galleryManager.getPictureFromGallery();
-        Debug.Log(texture);
         if (texture)
         {
             instance = Instantiate(objectToPlace, hitpose.position, Quaternion.identity);
@@ -61,8 +59,6 @@ public class FramePlacer : PressInputBase
             instance.transform.Rotate(0, yRotation, 0, Space.Self);
             instance.tag = "Placable";
             applyPicture();
-            // Store the current objectToPlace as the previous object
-            previousObjectToPlace = objectToPlace;
         }
         else
         {
@@ -78,11 +74,23 @@ public class FramePlacer : PressInputBase
         sizeZ /= 100;
 
         var hitpose = _hits[0].pose;
+        if (galleryManager.gameObject.activeSelf)
+        {
+            galleryManager.setPictureFromGallery(null);
+        }
+        texture = galleryManager.getPictureFromGallery();
 
-        instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
-        instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
-        instance.tag = "Placable";
-        applyPicture();
+        if (texture)
+        {
+            instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
+            instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
+            instance.tag = "Placable";
+            applyPicture();
+        }
+        else
+        {
+            Debug.Log("Choose image from gallery");
+        }
         return instance;
     }
 

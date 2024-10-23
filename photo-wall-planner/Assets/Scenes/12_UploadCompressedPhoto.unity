@@ -1256,6 +1256,7 @@ MonoBehaviour:
   invalidInputText: {fileID: 934521303}
   framePlacer: {fileID: 710260145}
   framesButton: {fileID: 1764314027}
+  galleryMenu: {fileID: 1533075313}
 --- !u!114 &755284091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1802,6 +1803,7 @@ MonoBehaviour:
   FramesList: {fileID: 974823092}
   setCustomFrameWindow: {fileID: 755284095}
   galleryMenu: {fileID: 1533075313}
+  galleryManager: {fileID: 1533075314}
   FrameSelection: []
 --- !u!114 &974823096
 MonoBehaviour:

@@ -29,8 +29,10 @@ public class FrameMenuUI : MonoBehaviour
     [SerializeField]
     private Canvas galleryMenu;
     [SerializeField]
+    private GalleryManager galleryManager;
+    [SerializeField]
+
     private List<GameObject> FrameSelection = new List<GameObject>();
-    private GameObject instance;
 
     private bool landScape = false;
     private bool orientationWindowOpen = false;
@@ -38,7 +40,6 @@ public class FrameMenuUI : MonoBehaviour
     //UI interactions
     public void OpenOrientationWindow()
     {
-        Debug.Log("OPEN");
         FramesButton.SetActive(false);
         OrientationWindow.SetActive(true);
         orientationWindowOpen = true;
@@ -95,6 +96,8 @@ public class FrameMenuUI : MonoBehaviour
         OrientationWindow.SetActive(false);
         orientationWindowOpen = false;
         setCustomFrameWindow.enabled = true;
+        galleryManager.setPictureFromGallery(null);
+
     }
 
     //Making buttons in the list

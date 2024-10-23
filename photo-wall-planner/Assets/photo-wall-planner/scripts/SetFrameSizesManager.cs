@@ -12,6 +12,7 @@ public class SetFrameSizesManager : MonoBehaviour
 
     [SerializeField] private FramePlacer framePlacer;
     [SerializeField] private GameObject framesButton;
+    [SerializeField] private Canvas galleryMenu;
 
     void Awake()
     {
@@ -26,6 +27,8 @@ public class SetFrameSizesManager : MonoBehaviour
                 framePlacer.PlaceCustomFrame(sizeX, sizeZ);
                 HideUI();
                 framesButton.SetActive(true);
+                galleryMenu.gameObject.SetActive(true);
+
             }
             else
             {

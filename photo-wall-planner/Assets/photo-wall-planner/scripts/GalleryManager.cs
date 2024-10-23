@@ -46,4 +46,9 @@ public class GalleryManager : MonoBehaviour
     {
         return texture;
     }
+
+    public void setPictureFromGallery(Texture2D texture)
+    {
+        this.texture = texture;
+    }
 }

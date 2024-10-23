@@ -12,7 +12,6 @@ public class SaveManager : MonoBehaviour
 
 	public void SaveProject()
 	{
-		Debug.Log("Saving project...");
 		iconButton.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 
 		StartCoroutine(ResetScaleAfterDelay());
@@ -28,9 +27,7 @@ public class SaveManager : MonoBehaviour
 
 	public void TakeScreenshot()
 	{
-		// distanceManager.ToggleDistanceDisplay();
 		StartCoroutine(TakeScreenshotAndSave());
-		// distanceManager.ToggleDistanceDisplay();
 	}
 
 	private IEnumerator TakeScreenshotAndSave()

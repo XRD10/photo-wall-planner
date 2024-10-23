@@ -117,7 +117,6 @@ public class WorkingAreaManager : PressInputBase
 	public void CompleteEditing()
 	{
 		isWorkingAreaEditingComplete = true;
-		Debug.Log("Working area editing completed.");
 		workingAreaPlane.tag = "Untagged";
 		CompleteButton.SetActive(false);
 	}

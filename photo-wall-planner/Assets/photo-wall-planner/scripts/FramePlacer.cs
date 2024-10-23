@@ -40,7 +40,6 @@ public class FramePlacer : PressInputBase
 		// check if working area was created
 		if (!GameObject.Find("WorkingArea"))
 		{
-			Debug.LogError("No working area created");
 			return;
 		}
 
@@ -57,7 +56,6 @@ public class FramePlacer : PressInputBase
 
 		if (!workingAreaManager.IsPointInsideWorkingArea(_hits[0].pose.position))
 		{
-			Debug.LogError("Cannot place frame outside the working area");
 			return;
 		}
 
@@ -73,8 +71,6 @@ public class FramePlacer : PressInputBase
 		instance.transform.localScale = new Vector3(objectToPlace.transform.localScale.x, objectToPlace.transform.localScale.y / 10, objectToPlace.transform.localScale.z);
 
 		instance.transform.up = hitpose.up;
-		Debug.Log(hitpose.up);
-		Debug.Log(instance.transform.up);
 
 		float yRotation = frames.GetLandscape() ? 0f : 90f;
 		instance.transform.Rotate(0, yRotation, 0, Space.Self);
@@ -103,45 +99,4 @@ public class FramePlacer : PressInputBase
 		distanceManager.AddFrame(instance);
 	}
 
-	// private void DisplayFrameDistances(GameObject frame)
-	// {
-	// 	Vector3 framePosition = frame.transform.position;
-
-	// 	// Get working area bounds
-	// 	Vector3 minBounds = workingAreaManager.GetWorkingAreaMinBounds();
-	// 	Vector3 maxBounds = workingAreaManager.GetWorkingAreaMaxBounds();
-
-	// 	// Calculate distances to each edge of the working area
-	// 	float distanceToLeftEdge = Mathf.Abs(framePosition.x - minBounds.x);
-	// 	float distanceToRightEdge = Mathf.Abs(maxBounds.x - framePosition.x);
-	// 	// TODO not working
-	// 	float distanceToTopEdge = Mathf.Abs(maxBounds.z - framePosition.z);
-	// 	float distanceToBottomEdge = Mathf.Abs(framePosition.z - minBounds.z);
-
-	// 	Debug.Log("Frame Position: " + frame.transform.rotation.eulerAngles);
-
-
-	// 	// Display the distances using TextMeshPro or UI elements
-	// 	CreateDistanceText(frame, distanceToLeftEdge, "LeftEdgeDistance", new Vector3(-0.7f, 0.3f, 0));
-	// 	CreateDistanceText(frame, distanceToRightEdge, "RightEdgeDistance", new Vector3(0.7f, 0.3f, 0));
-	// 	CreateDistanceText(frame, distanceToTopEdge, "TopEdgeDistance", new Vector3(0, 0.3f, 0.7f));
-	// 	CreateDistanceText(frame, distanceToBottomEdge, "BottomEdgeDistance", new Vector3(0, 0.3f, -0.7f));
-	// }
-
-	// private void CreateDistanceText(GameObject frame, float distance, string textObjectName, Vector3 localPosition)
-	// {
-	// 	GameObject distanceText = new GameObject(textObjectName);
-	// 	distanceText.transform.SetParent(frame.transform, false);
-
-	// 	TextMeshPro distanceTextMesh = distanceText.AddComponent<TextMeshPro>();
-	// 	distanceTextMesh.text = (int)(distance * 100) + "cm";
-	// 	distanceTextMesh.color = Color.red;
-	// 	distanceTextMesh.fontSize = 1.5f;
-	// 	distanceTextMesh.alignment = TextAlignmentOptions.Center;
-
-	// 	distanceText.transform.localScale = Vector3.one;
-	// 	distanceText.transform.localPosition = localPosition;
-	// 	distanceText.transform.localRotation = Quaternion.Euler(90, -90, 0);
-	// 	distanceText.SetActive(false);
-	// }
 }

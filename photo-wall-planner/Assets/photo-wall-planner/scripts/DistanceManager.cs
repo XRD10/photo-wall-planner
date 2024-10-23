@@ -20,7 +20,6 @@ public class DistanceManager : MonoBehaviour
 	public void ToggleDistanceDisplay()
 	{
 		displayDistances = !displayDistances;
-		Debug.Log("Toggling distance display to " + displayDistances);
 
 		foreach (GameObject frame in frames)
 		{

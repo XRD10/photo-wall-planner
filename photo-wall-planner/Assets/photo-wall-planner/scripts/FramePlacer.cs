@@ -66,8 +66,6 @@ public class FramePlacer : PressInputBase
 	}
 	public void PlaceFrame()
 	{
-		//from cm to unity units (m)
-
 		var hitpose = _hits[0].pose;
 
 		GameObject instance = Instantiate(objectToPlace, hitpose.position + hitpose.up * 0.02f, Quaternion.identity);
@@ -78,10 +76,10 @@ public class FramePlacer : PressInputBase
 		Debug.Log(instance.transform.up);
 
 		float yRotation = frames.GetLandscape() ? 0f : 90f;
-		SetText(instance, instance.transform.localScale.z, instance.transform.localScale.x);
 		instance.transform.Rotate(0, yRotation, 0, Space.Self);
 		instance.tag = "Placable";
 
+		DisplayFrameDistances(instance);
 	}
 
 	public void PlaceCustomFrame(float sizeX, float sizeZ)
@@ -100,42 +98,48 @@ public class FramePlacer : PressInputBase
 
 		GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
 		instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
-		SetText(instance, sizeZ, sizeX);
+		DisplayFrameDistances(instance);
+
 	}
 
-	private void SetText(GameObject frame, float x, float y)
+	private void DisplayFrameDistances(GameObject frame)
 	{
-		if (frame == null) return;
+		Vector3 framePosition = frame.transform.position;
 
-		Vector3 parentScale = frame.transform.lossyScale;
-		Vector3 inverseScale = new Vector3((x / parentScale.x) * 4, 4f, y / parentScale.z);
+		// Get working area bounds
+		Vector3 minBounds = workingAreaManager.GetWorkingAreaMinBounds();
+		Vector3 maxBounds = workingAreaManager.GetWorkingAreaMaxBounds();
 
-		GameObject xText = new GameObject("XText");
+		// Calculate distances to each edge of the working area
+		float distanceToLeftEdge = Mathf.Abs(framePosition.x - minBounds.x);
+		float distanceToRightEdge = Mathf.Abs(maxBounds.x - framePosition.x);
+		// TODO not working
+		float distanceToTopEdge = Mathf.Abs(maxBounds.z - framePosition.z);
+		float distanceToBottomEdge = Mathf.Abs(framePosition.z - minBounds.z);
 
-		xText.transform.SetParent(frame.transform, false);
+		Debug.Log("Frame Position: " + frame.transform.rotation.eulerAngles);
 
-		TextMeshPro xTextMesh = xText.AddComponent<TextMeshPro>();
-		xTextMesh.text = (x * 100).ToString() + "cm";
-		xTextMesh.color = Color.red;
-		xTextMesh.fontSize = 0.1f;
-		xTextMesh.alignment = TextAlignmentOptions.Center;
 
-		xText.transform.localScale = inverseScale;
-		xText.transform.localPosition = new Vector3(0.08f, 0.22f, 0);
-		xText.transform.localRotation = Quaternion.Euler(90, -90, 0);
+		// Display the distances using TextMeshPro or UI elements
+		DisplayDistanceText(frame, distanceToLeftEdge, "LeftEdgeDistance", new Vector3(-0.7f, 0.3f, 0));
+		DisplayDistanceText(frame, distanceToRightEdge, "RightEdgeDistance", new Vector3(0.7f, 0.3f, 0));
+		DisplayDistanceText(frame, distanceToTopEdge, "TopEdgeDistance", new Vector3(0, 0.3f, 0.7f));
+		DisplayDistanceText(frame, distanceToBottomEdge, "BottomEdgeDistance", new Vector3(0, 0.3f, -0.7f));
+	}
 
-		GameObject yText = new GameObject("YText");
-		yText.transform.SetParent(frame.transform, false);
+	private void DisplayDistanceText(GameObject frame, float distance, string textObjectName, Vector3 localPosition)
+	{
+		GameObject distanceText = new GameObject(textObjectName);
+		distanceText.transform.SetParent(frame.transform, false);
 
-		TextMeshPro yTextMesh = yText.AddComponent<TextMeshPro>();
-		yTextMesh.text = (y * 100).ToString() + "cm";
-		yTextMesh.color = Color.red;
-		yTextMesh.fontSize = 0.1f;
-		yTextMesh.alignment = TextAlignmentOptions.Center;
+		TextMeshPro distanceTextMesh = distanceText.AddComponent<TextMeshPro>();
+		distanceTextMesh.text = (int)(distance * 100) + "cm";
+		distanceTextMesh.color = Color.red;
+		distanceTextMesh.fontSize = 1.5f;
+		distanceTextMesh.alignment = TextAlignmentOptions.Center;
 
-		yText.transform.localScale = inverseScale;
-		yText.transform.localPosition = new Vector3(0, 0.22f, -0.08f);
-		yText.transform.localRotation = Quaternion.Euler(90, -90, 90);
-
+		distanceText.transform.localScale = Vector3.one;
+		distanceText.transform.localPosition = localPosition;
+		distanceText.transform.localRotation = Quaternion.Euler(90, -90, 0);
 	}
 }

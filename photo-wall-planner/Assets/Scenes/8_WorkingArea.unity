@@ -1269,6 +1269,9 @@ MonoBehaviour:
   setFrameSizesCanvas: {fileID: 755284095}
   arCamera: {fileID: 1360256773}
   workingAreaManager: {fileID: 1602170770}
+  xTextSpawn: {x: 0, y: 0, z: 0}
+  yTextSpawn: {x: 0, y: 0, z: 0}
+  fontXY: {fileID: 0}
 --- !u!4 &710260146
 Transform:
   m_ObjectHideFlags: 0
@@ -1384,6 +1387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setButton: {fileID: 598862498}
+  cancelButton: {fileID: 0}
   sizeXInput: {fileID: 2003186074}
   sizeZInput: {fileID: 1937669497}
   invalidInputText: {fileID: 934521303}
@@ -1697,54 +1701,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755480812}
   m_CullTransparentMesh: 1
---- !u!1 &895705036
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 895705038}
-  - component: {fileID: 895705037}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &895705037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895705036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f9bce40428da440e81078f7bdadb7db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  workingAreaManager: {fileID: 1602170770}
-  distanceTextPrefab: {fileID: 5860385167223473467, guid: f9aa708f7626b436299b8aa70340b9cb,
-    type: 3}
-  updateInterval: 0.5
---- !u!4 &895705038
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895705036}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.82607144, y: 0.82160294, z: -0.5821527}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &934521302
 GameObject:
   m_ObjectHideFlags: 0
@@ -5272,4 +5228,3 @@ SceneRoots:
   - {fileID: 393882684}
   - {fileID: 755284096}
   - {fileID: 1602170771}
-  - {fileID: 895705038}

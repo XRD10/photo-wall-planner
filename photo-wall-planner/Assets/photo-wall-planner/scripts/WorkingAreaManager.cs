@@ -51,6 +51,7 @@ public class WorkingAreaManager : PressInputBase
 
 	void PlaceWorkingArea()
 	{
+
 		var hitpose = _hits[0].pose;
 
 		// reference: https://discussions.unity.com/t/arfoundation-vertical-plane-recognition-position-rotation-on-plane-normal/786665
@@ -119,16 +120,6 @@ public class WorkingAreaManager : PressInputBase
 		Debug.Log("Working area editing completed.");
 		workingAreaPlane.tag = "Untagged";
 		CompleteButton.SetActive(false);
-
-		// TODO find out why this is not working
-		// because the objects are not active
-		GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("VisibleButton");
-
-		foreach (GameObject obj in objectsWithTag)
-		{
-			Debug.Log(obj.name);
-			obj.SetActive(true);
-		}
 	}
 
 	public bool IsEditingComplete()
@@ -138,7 +129,6 @@ public class WorkingAreaManager : PressInputBase
 
 	public bool IsPointInsideWorkingArea(Vector3 point)
 	{
-		Debug.Log(point);
 		if (workingAreaPlane == null || !isWorkingAreaEditingComplete)
 		{
 			return false;
@@ -163,18 +153,24 @@ public class WorkingAreaManager : PressInputBase
 		return isInside;
 	}
 
-	public Vector3 GetWorkingAreaCenter()
+	public Vector3 GetWorkingAreaMinBounds()
 	{
-		return workingAreaPlane.transform.position;
+		return workingAreaPlane.GetComponent<Renderer>().bounds.min;
 	}
 
-	public Vector3 GetWorkingAreaSize()
+	public Vector3 GetWorkingAreaMaxBounds()
 	{
-		return workingAreaPlane.transform.localScale;
+		return workingAreaPlane.GetComponent<Renderer>().bounds.max;
 	}
 
-	public Quaternion GetWorkingAreaRotation()
+	private void SetActiveButtons(bool isActive)
 	{
-		return workingAreaPlane.transform.rotation;
+		GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("VisibleButton");
+
+		foreach (GameObject obj in objectsWithTag)
+		{
+			Debug.Log(obj.name);
+			obj.SetActive(isActive);
+		}
 	}
 }

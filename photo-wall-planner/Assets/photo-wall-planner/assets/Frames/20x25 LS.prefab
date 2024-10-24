@@ -8,16 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 479698811589167714, guid: 14f6e80527ed0014d80295e2e18a1e1f,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 479698811589167714, guid: 14f6e80527ed0014d80295e2e18a1e1f,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2644699653642223145, guid: 14f6e80527ed0014d80295e2e18a1e1f,
         type: 3}
       propertyPath: m_Name
@@ -73,28 +63,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7037718703982036704, guid: 14f6e80527ed0014d80295e2e18a1e1f,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7037718703982036704, guid: 14f6e80527ed0014d80295e2e18a1e1f,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7037718703982036704, guid: 14f6e80527ed0014d80295e2e18a1e1f,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7037718703982036704, guid: 14f6e80527ed0014d80295e2e18a1e1f,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4432460469505752554, guid: 14f6e80527ed0014d80295e2e18a1e1f, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

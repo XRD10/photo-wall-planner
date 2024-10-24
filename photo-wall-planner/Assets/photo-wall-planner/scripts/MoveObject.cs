@@ -15,6 +15,20 @@ public class MoveObject : PressInputBase
     private Transform objectToMove;       
     private TrackableId initialPlaneId;   
 
+    //Selecting and deleting a frame
+    [SerializeField] 
+    public bool selected = false;
+    [SerializeField] 
+    private GameObject selectedFrame = null;
+    [SerializeField] 
+    private GameObject deleteButton;
+    [SerializeField] 
+    private GameObject deselectButton;
+    [SerializeField] 
+    private GameObject saveButton;
+    [SerializeField] 
+    private GameObject framesButton;
+
     protected override void OnPress(Vector3 position)
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
@@ -34,11 +48,48 @@ public class MoveObject : PressInputBase
             {
                 objectToMove = hit.transform;
                 isDragging = true; 
-                initialPlaneId = hitTrackableId;  
+                initialPlaneId = hitTrackableId;
+                selectFrame(objectToMove.gameObject);  
             }
         }
     }
 
+    private void selectFrame(GameObject frame)
+    {
+        selected = true;
+        selectedFrame = frame;
+        deleteButton.SetActive(true);
+        deselectButton.SetActive(true);
+        saveButton.SetActive(false);
+        framesButton.SetActive(false);
+    }
+
+    public void DeleteFrame()
+    {
+        Destroy(selectedFrame);
+        selected = false;
+        ToggleUIButtons();
+    }
+
+    public void DeselectFrame()
+    {
+        selectedFrame = null;
+        selected = false;
+        ToggleUIButtons();
+    }
+
+    private void ToggleUIButtons()
+    {
+                deleteButton.SetActive(!deleteButton.activeSelf);
+        deselectButton.SetActive(!deselectButton.activeSelf);
+                saveButton.SetActive(!saveButton.activeSelf);
+        framesButton.SetActive(!framesButton.activeSelf);
+    }
+
+    public bool isSelected()
+    {
+        return selected;
+    }
     private void Update()
     {
         if (isDragging)

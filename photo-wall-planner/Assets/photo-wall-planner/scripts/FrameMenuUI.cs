@@ -65,7 +65,6 @@ public class FrameMenuUI : MonoBehaviour
     {
         landScape = true;
         SetFrameSelection(ls_FrameObjects);
-       // SetNumberOfFrames();
         OrientationWindow.SetActive(false);
         FramesList.SetActive(true);
         PopulateObjectList();
@@ -74,7 +73,6 @@ public class FrameMenuUI : MonoBehaviour
     {
         landScape = false;
         OrientationWindow.SetActive(false);
-       // SetNumberOfFrames();
         SetFrameSelection(p_FrameObjects);
         FramesList.SetActive(true);
         PopulateObjectList();

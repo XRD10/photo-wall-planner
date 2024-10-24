@@ -6,15 +6,15 @@ using TMPro;
 
 public class FrameMenuUI : MonoBehaviour
 {
-    
-    [SerializeField] 
+
+    [SerializeField]
     private GameObject buttonPrefab;
-    [SerializeField] 
+    [SerializeField]
     private Transform buttonContainer;
     [SerializeField]
     List<GameObject> p_FrameObjects = new List<GameObject>();
     [SerializeField]
-    List<GameObject> ls_FrameObjects = new List<GameObject>();
+    List<GameObject> ls_FrameObjects = new List<GameObject>(); //HERE we set images
     [SerializeField]
     public GameObject FrameToSpawn;
     [SerializeField]
@@ -27,25 +27,30 @@ public class FrameMenuUI : MonoBehaviour
     [SerializeField]
     private Canvas setCustomFrameWindow;
     [SerializeField]
+    private Canvas galleryMenu;
+    [SerializeField]
+    private GalleryManager galleryManager;
+    [SerializeField]
+
     private List<GameObject> FrameSelection = new List<GameObject>();
 
     private bool landScape = false;
+    private bool orientationWindowOpen = false;
 
     //UI interactions
     public void OpenOrientationWindow()
     {
         FramesButton.SetActive(false);
         OrientationWindow.SetActive(true);
-    }
+        orientationWindowOpen = true;
 
-    
+    }
 
     // Method to set the number of frames in the list
     private void SetNumberOfFrames()
     {
         NumberOfFrames = landScape ? ls_FrameObjects.Count : p_FrameObjects.Count;
     }
-
 
     //Passed to FramePlacer
     public GameObject GetFrame()
@@ -64,8 +69,9 @@ public class FrameMenuUI : MonoBehaviour
     {
         landScape = true;
         SetFrameSelection(ls_FrameObjects);
-       // SetNumberOfFrames();
+        // SetNumberOfFrames();
         OrientationWindow.SetActive(false);
+        orientationWindowOpen = false;
         FramesList.SetActive(true);
         PopulateObjectList();
     }
@@ -73,7 +79,8 @@ public class FrameMenuUI : MonoBehaviour
     {
         landScape = false;
         OrientationWindow.SetActive(false);
-       // SetNumberOfFrames();
+        orientationWindowOpen = false;
+        // SetNumberOfFrames();
         SetFrameSelection(p_FrameObjects);
         FramesList.SetActive(true);
         PopulateObjectList();
@@ -87,11 +94,11 @@ public class FrameMenuUI : MonoBehaviour
     public void SetCustomFrame()
     {
         OrientationWindow.SetActive(false);
+        orientationWindowOpen = false;
         setCustomFrameWindow.enabled = true;
+        galleryManager.setPictureFromGallery(null);
+
     }
-
-
-
 
     //Making buttons in the list
     void PopulateObjectList()
@@ -114,15 +121,17 @@ public class FrameMenuUI : MonoBehaviour
             {
                 DestroyAllChildren();
                 FramesList.SetActive(false);
-                SetSpawnObject(index);
+                SetSpawnObject(index); //Here we SET
                 FramesButton.SetActive(true);
+                galleryMenu.gameObject.SetActive(true);
+
             });
         }
     }
 
     private void DestroyAllChildren()
     {
-        foreach(Transform child in buttonContainer)
+        foreach (Transform child in buttonContainer)
         {
             Destroy(child.gameObject);
         }
@@ -133,10 +142,15 @@ public class FrameMenuUI : MonoBehaviour
     {
         if (index >= 0 && index < NumberOfFrames)
         {
-                FrameToSpawn = FrameSelection[index];
-                return;
+            FrameToSpawn = FrameSelection[index];
+            return;
         }
         Debug.LogError("Index error - Check object list");
         return;
+    }
+
+    public bool isOrientatioWindowOpen()
+    {
+        return orientationWindowOpen;
     }
 }

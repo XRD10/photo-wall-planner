@@ -3,17 +3,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using UnityEngine.InputSystem;  
+using UnityEngine.InputSystem;
 
 public class MoveObject : PressInputBase
 {
     [SerializeField] private ARRaycastManager raycastManager;
     private static readonly List<ARRaycastHit> _hits = new();
     private readonly string targetTag = "Placable";
-    
-    private bool isDragging = false;      
-    private Transform objectToMove;       
-    private TrackableId initialPlaneId;   
+
+    private bool isDragging = false;
+    private Transform objectToMove;
+    private TrackableId initialPlaneId;
 
     protected override void OnPress(Vector3 position)
     {
@@ -33,8 +33,8 @@ public class MoveObject : PressInputBase
             if (hit.transform.CompareTag(targetTag))
             {
                 objectToMove = hit.transform;
-                isDragging = true; 
-                initialPlaneId = hitTrackableId;  
+                isDragging = true;
+                initialPlaneId = hitTrackableId;
             }
         }
     }
@@ -52,7 +52,7 @@ public class MoveObject : PressInputBase
 
                 if (hitTrackableId == initialPlaneId)
                 {
-                    objectToMove.position = hitPose.position;  
+                    objectToMove.position = hitPose.position;
                 }
             }
 

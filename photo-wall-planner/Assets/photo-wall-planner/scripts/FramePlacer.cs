@@ -51,8 +51,6 @@ public class FramePlacer : PressInputBase
     }
     public void PlaceFrame()
     {
-        Debug.Log("Placing a predefined frame");
-
         var hitpose = _hits[0].pose;
 
         GameObject instance = Instantiate(objectToPlace, hitpose.position, Quaternion.identity);
@@ -74,7 +72,6 @@ public class FramePlacer : PressInputBase
         sizeZ /= 100;
 
         var hitpose = _hits[0].pose;
-        Debug.Log("Placing custom frame");
 
         GameObject instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
         instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);

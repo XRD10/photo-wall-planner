@@ -47,7 +47,6 @@ public class FramePlacer : PressInputBase
         // If the image from the gallery was not picked or if the frame sized was changed, then
         if (galleryManager.gameObject.activeSelf)
         {
-            Debug.Log("Wrong"); ;
             galleryManager.setPictureFromGallery(null);
         }
 
@@ -61,7 +60,6 @@ public class FramePlacer : PressInputBase
             float yRotation = frames.GetLandscape() ? 0f : 90f;
             instance.transform.Rotate(0, yRotation, 0, Space.Self);
             instance.tag = "Placable";
-            Debug.Log("PRE MADE");
 
             applyPicture();
         }
@@ -85,13 +83,12 @@ public class FramePlacer : PressInputBase
         }
         texture = galleryManager.getPictureFromGallery();
 
-
-        instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
-        instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
-        instance.tag = "Placable";
-        Debug.Log("Custom");
         if (texture)
         {
+            instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
+            instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
+            instance.tag = "Placable";
+
             applyPicture();
         }
         else

@@ -21,6 +21,10 @@ public class FramePlacer : PressInputBase
     [SerializeField] private Vector3 xTextSpawn;
     [SerializeField] private Vector3 yTextSpawn;
     [SerializeField] private TMP_FontAsset fontXY;
+    [SerializeField]
+    private MoveObject moveObject;
+    [SerializeField] private bool selectedMode = false;
+
 
 
 
@@ -42,6 +46,14 @@ public class FramePlacer : PressInputBase
             return;
         }
 
+        //Checking placing mode
+        GetMode();
+        if (selectedMode == true)
+        {
+            Debug.Log("In placing mode");
+            return;
+        }
+
         PlaceFrame();
     }
     public void PlaceFrame()
@@ -58,6 +70,11 @@ public class FramePlacer : PressInputBase
         SetText(instance, instance.transform.localScale.z, instance.transform.localScale.x);
         instance.tag = "Placable";
 
+    }
+
+    private void GetMode()
+    {
+        selectedMode = moveObject.isSelected();
     }
 
     public void PlaceCustomFrame(float sizeX, float sizeZ)

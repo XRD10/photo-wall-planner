@@ -6,6 +6,7 @@ public class SetFrameSizesManager : MonoBehaviour
 {
     private Canvas UI;
     [SerializeField] private Button setButton;
+    [SerializeField] private Button cancelButton;
     [SerializeField] private TMP_InputField sizeXInput;
     [SerializeField] private TMP_InputField sizeZInput;
     [SerializeField] private TMP_Text invalidInputText;
@@ -34,6 +35,11 @@ public class SetFrameSizesManager : MonoBehaviour
             {
                 ShowInvalidInputText();
             }
+        });
+        cancelButton.onClick.AddListener(() =>
+        {
+            HideUI();
+            framesButton.SetActive(true);
         });
     }
 

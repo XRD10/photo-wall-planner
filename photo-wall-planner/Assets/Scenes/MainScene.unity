@@ -995,12 +995,9 @@ MonoBehaviour:
   raycastManager: {fileID: 1340727327}
   objectToPlace: {fileID: 8986328500875594450, guid: d825bbdf58c379d4290da92e387f71d0,
     type: 3}
-  frames: {fileID: 974823095}
+  frameMenuUI: {fileID: 974823095}
   setFrameSizesCanvas: {fileID: 755284095}
   arCamera: {fileID: 1360256773}
-  xTextSpawn: {x: 0, y: 0, z: 0}
-  yTextSpawn: {x: 0, y: 0, z: 0}
-  fontXY: {fileID: 0}
 --- !u!4 &710260146
 Transform:
   m_ObjectHideFlags: 0
@@ -1260,6 +1257,7 @@ MonoBehaviour:
   invalidInputText: {fileID: 934521303}
   framePlacer: {fileID: 710260145}
   framesButton: {fileID: 1764314027}
+  fameMenuUI: {fileID: 974823095}
 --- !u!114 &755284091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1961,6 +1959,8 @@ MonoBehaviour:
   - {fileID: 6916559242482437649, guid: 0948525f68fc1724c9167130a42dc454, type: 3}
   - {fileID: 7713564677252925045, guid: d63ca87df267d8f419ef2a2cd75bb5ff, type: 3}
   FrameToSpawn: {fileID: 0}
+  customFrame: {fileID: 7713564677252925045, guid: d63ca87df267d8f419ef2a2cd75bb5ff,
+    type: 3}
   OrientationWindow: {fileID: 1846544392}
   FramesButton: {fileID: 1764314027}
   FramesList: {fileID: 974823092}

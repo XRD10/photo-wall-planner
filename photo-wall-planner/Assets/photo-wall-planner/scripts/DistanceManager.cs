@@ -46,48 +46,40 @@ public class DistanceManager : MonoBehaviour
 	private void CalculateAndDisplayDistances(GameObject frame)
 	{
 		GameObject workingAreaPlane = workingAreaManager.GetPlane();
-		Transform workingArea = workingAreaPlane.transform;
 
-		// Get the frame bounds (assuming it has a renderer)
-		Bounds frameBounds = frame.GetComponent<Renderer>().bounds;
-		Vector3 frameCenter = frameBounds.center;
+		// Get the mounting point
+		Transform mountingPoint = frame.transform.Find("Frame").Find("ls_MountingPoint");
+
+		if (mountingPoint == null)
+		{
+			mountingPoint = frame.transform.Find("Frame").Find("p_MountingPoint");
+			if (mountingPoint == null)
+			{
+				Debug.LogError("Mounting point not found on frame!");
+				return;
+			}
+		}
 
 		// Get working area bounds
 		Bounds workingAreaBounds = workingAreaPlane.GetComponent<Renderer>().bounds;
+		Vector3 mountingPosition = mountingPoint.position;
 
-		// Calculate the distances to each edge
-		float distanceToLeftEdge = Mathf.Abs(frameCenter.y - workingAreaBounds.min.y);
-		float distanceToRightEdge = Mathf.Abs(workingAreaBounds.max.y - frameCenter.y);
-		float distanceToTopEdge = Mathf.Abs(workingAreaBounds.max.z - frameCenter.z);
-		float distanceToBottomEdge = Mathf.Abs(frameCenter.z - workingAreaBounds.min.z);
+		Vector3 workingAreaCenter = workingAreaPlane.transform.position;
+		float positionLeft = workingAreaCenter.y - workingAreaBounds.size.y / 2;
+		float positionRight = workingAreaCenter.y + workingAreaBounds.size.y / 2;
+		float positionTop = workingAreaCenter.z + workingAreaBounds.size.z / 2;
+		float positionBottom = workingAreaCenter.z - workingAreaBounds.size.z / 2;
 
-		// // Account for frame's own size
-		// float frameHalfWidth = frameBounds.size.y / 2f;
-		// float frameHalfLength = frameBounds.size.z / 2f;
 
-		// // Adjust distances by subtracting frame's half size
-		// distanceToLeftEdge -= frameHalfWidth;
-		// distanceToRightEdge -= frameHalfWidth;
-		// distanceToTopEdge -= frameHalfLength;
-		// distanceToBottomEdge -= frameHalfLength;
+		float distanceLeft = Mathf.Abs(mountingPosition.y - positionLeft);
+		float distanceRight = Mathf.Abs(mountingPosition.y - positionRight);
+		float distanceTop = Mathf.Abs(mountingPosition.z - positionTop);
+		float distanceBottom = Mathf.Abs(mountingPosition.z - positionBottom);
 
-		// Ensure distances don't go below 0
-		distanceToLeftEdge = Mathf.Max(0, distanceToLeftEdge);
-		distanceToRightEdge = Mathf.Max(0, distanceToRightEdge);
-		distanceToTopEdge = Mathf.Max(0, distanceToTopEdge);
-		distanceToBottomEdge = Mathf.Max(0, distanceToBottomEdge);
-
-		// For debugging
-		Debug.DrawLine(frameCenter, new Vector3(workingAreaBounds.min.y, frameCenter.y, frameCenter.z), Color.red, 1f);
-		Debug.DrawLine(frameCenter, new Vector3(workingAreaBounds.max.y, frameCenter.y, frameCenter.z), Color.green, 1f);
-		Debug.DrawLine(frameCenter, new Vector3(frameCenter.y, frameCenter.y, workingAreaBounds.max.z), Color.blue, 1f);
-		Debug.DrawLine(frameCenter, new Vector3(frameCenter.y, frameCenter.y, workingAreaBounds.min.z), Color.yellow, 1f);
-
-		// Create or update the text for displaying distances
-		CreateOrUpdateDistanceText(frame, distanceToLeftEdge, "LeftEdgeDistance", new Vector3(-0.7f, 0.3f, 0));
-		CreateOrUpdateDistanceText(frame, distanceToRightEdge, "RightEdgeDistance", new Vector3(0.7f, 0.3f, 0));
-		CreateOrUpdateDistanceText(frame, distanceToTopEdge, "TopEdgeDistance", new Vector3(0, 0.3f, 0.7f));
-		CreateOrUpdateDistanceText(frame, distanceToBottomEdge, "BottomEdgeDistance", new Vector3(0, 0.3f, -0.7f));
+		CreateOrUpdateDistanceText(frame, distanceLeft, "LeftEdgeDistance", new Vector3(-0.7f, 0.3f, 0));
+		CreateOrUpdateDistanceText(frame, distanceRight, "RightEdgeDistance", new Vector3(0.7f, 0.3f, 0));
+		CreateOrUpdateDistanceText(frame, distanceTop, "TopEdgeDistance", new Vector3(0, 0.3f, 0.7f));
+		CreateOrUpdateDistanceText(frame, distanceBottom, "BottomEdgeDistance", new Vector3(0, 0.3f, -0.7f));
 	}
 
 
@@ -110,6 +102,7 @@ public class DistanceManager : MonoBehaviour
 
 			distanceText.transform.localScale = Vector3.one;
 			distanceText.transform.localPosition = localPosition;
+
 			distanceText.transform.localRotation = Quaternion.Euler(90, -90, 0);
 		}
 		else

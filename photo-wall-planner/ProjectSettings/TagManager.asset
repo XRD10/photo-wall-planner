@@ -15,8 +15,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Frame
+  - Picture
   - 
   - 
   - 
@@ -44,6 +44,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: mount
+    uniqueID: 506624329
     locked: 0
   m_RenderingLayers:
   - Default

@@ -12,7 +12,7 @@ public class FramePlacer : PressInputBase
 {
     [SerializeField] private ARRaycastManager raycastManager;
     [SerializeField] private GameObject objectToPlace;
-    [SerializeField] private FrameMenuUI frames;
+    [SerializeField] private FrameMenuUI frameMenuUI;
     [SerializeField] private Canvas setFrameSizesCanvas;
     [SerializeField] private Camera arCamera;
     private static readonly List<ARRaycastHit> _hits = new();
@@ -32,7 +32,6 @@ public class FramePlacer : PressInputBase
     {
         base.OnPressBegan(position);
         if (EventSystem.current.IsPointerOverGameObject()) return;
-        objectToPlace = frames.GetFrame();
         if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
 
         ray = arCamera.ScreenPointToRay(position);
@@ -40,12 +39,13 @@ public class FramePlacer : PressInputBase
         if (Physics.Raycast(ray, out RaycastHit hitObject))
             if (hitObject.transform.CompareTag("Placable")) return;
 
+        objectToPlace = frameMenuUI.GetFrame();
+
         if (objectToPlace == null)
         {
             Debug.Log("No object selected");
             return;
         }
-
         //Checking placing mode
         GetMode();
         if (selectedMode == true)
@@ -53,8 +53,17 @@ public class FramePlacer : PressInputBase
             Debug.Log("In placing mode");
             return;
         }
+        if (frameMenuUI.IsCustomFrame())
+        {
+            (float sizeX, float sizeZ) = frameMenuUI.GetCustomFrameSize();
+            PlaceCustomFrame(sizeX, sizeZ);
+        }
+        else
+        {
 
-        PlaceFrame();
+            PlaceFrame();
+        }
+
     }
     public void PlaceFrame()
     {
@@ -65,7 +74,7 @@ public class FramePlacer : PressInputBase
 
         instance.transform.up = hitpose.up;
 
-        float yRotation = frames.GetLandscape() ? 0f : 90f;
+        float yRotation = frameMenuUI.GetLandscape() ? 0f : 90f;
         instance.transform.Rotate(0, yRotation, 0, Space.Self);
         SetText(instance, instance.transform.localScale.z, instance.transform.localScale.x);
         instance.tag = "Placable";

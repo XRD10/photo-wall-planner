@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 113}
+  m_AnchoredPosition: {x: 0, y: 240}
   m_SizeDelta: {x: 260, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &170279081
@@ -3330,6 +3330,7 @@ MonoBehaviour:
     type: 3}
   arCamera: {fileID: 1360256773}
   CompleteButton: {fileID: 170279079}
+  tolerance: 0.25
 --- !u!4 &1602170771
 Transform:
   m_ObjectHideFlags: 0

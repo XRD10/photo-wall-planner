@@ -11,6 +11,7 @@ public class WorkingAreaManager : PressInputBase
 	[SerializeField] private GameObject workingAreaPlanePrefab;
 	[SerializeField] private Camera arCamera;
 	[SerializeField] private GameObject CompleteButton;
+	[SerializeField] private float tolerance = 0.25f;
 
 	private GameObject workingAreaPlane;
 	private static readonly List<ARRaycastHit> _hits = new List<ARRaycastHit>();
@@ -133,21 +134,42 @@ public class WorkingAreaManager : PressInputBase
 			return false;
 		}
 
-		Quaternion rotationXZ = Quaternion.Euler(
-				workingAreaPlane.transform.rotation.eulerAngles.x,
-				0f,
-				workingAreaPlane.transform.rotation.eulerAngles.z
-		  );
+		Transform planeTransform = workingAreaPlane.transform;
+		Vector3 planeNormal = planeTransform.up;
+		Vector3 planePoint = planeTransform.position;
 
-		Vector3 localPoint = Quaternion.Inverse(rotationXZ) * (point - workingAreaPlane.transform.position);
+		float distanceToPlane = Mathf.Abs(Vector3.Dot(planeNormal, point - planePoint));
 
-		float halfWidth = workingAreaPlane.transform.localScale.x / 2f;
-		float halfLength = workingAreaPlane.transform.localScale.z / 2f;
+		// If the point is too far from the plane surface, it's not inside
+		if (distanceToPlane > tolerance)
+		{
+			Debug.Log("Point is too far from the plane");
+			return false;
+		}
 
-		bool isInside = localPoint.x >= -halfWidth && localPoint.x <= halfWidth &&
-							 localPoint.z >= -halfLength && localPoint.z <= halfLength;
+		// Project the point onto the plane
+		Vector3 projectedPoint = point - distanceToPlane * planeNormal;
 
-		return isInside;
+		// Calculate the local axes of the plane
+		Vector3 forward = planeTransform.forward;
+		Vector3 right = planeTransform.right;
+
+		// Calculate vectors from plane center to the projected point
+		Vector3 toPoint = projectedPoint - planePoint;
+
+		// Calculate the dot products to find local coordinates
+		float forwardDot = Vector3.Dot(toPoint, forward);
+		float rightDot = Vector3.Dot(toPoint, right);
+
+		float halfLength = planeTransform.localScale.z / 2f;
+		float halfWidth = planeTransform.localScale.x / 2f;
+
+
+		return Mathf.Abs(forwardDot) <= halfLength && Mathf.Abs(rightDot) <= halfWidth;
+	}
+	public GameObject GetPlane()
+	{
+		return workingAreaPlane;
 	}
 
 	public Vector3 GetWorkingAreaMinBounds()

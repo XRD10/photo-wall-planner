@@ -15,6 +15,7 @@ public class DistanceManager : MonoBehaviour
 	public void AddFrame(GameObject frame)
 	{
 		frames.Add(frame);
+		CalculateAndDisplayDistances(frame);
 	}
 
 	public void ToggleDistanceDisplay()
@@ -42,20 +43,45 @@ public class DistanceManager : MonoBehaviour
 			}
 		}
 	}
-
 	private void CalculateAndDisplayDistances(GameObject frame)
 	{
-		Vector3 framePosition = frame.transform.position;
+		GameObject workingAreaPlane = workingAreaManager.GetPlane();
+		Transform workingArea = workingAreaPlane.transform;
+
+		// Get the frame bounds (assuming it has a renderer)
+		Bounds frameBounds = frame.GetComponent<Renderer>().bounds;
+		Vector3 frameCenter = frameBounds.center;
 
 		// Get working area bounds
-		Vector3 minBounds = workingAreaManager.GetWorkingAreaMinBounds();
-		Vector3 maxBounds = workingAreaManager.GetWorkingAreaMaxBounds();
+		Bounds workingAreaBounds = workingAreaPlane.GetComponent<Renderer>().bounds;
 
-		// Calculate distances to each edge of the working area
-		float distanceToLeftEdge = Mathf.Abs(framePosition.x - minBounds.x);
-		float distanceToRightEdge = Mathf.Abs(maxBounds.x - framePosition.x);
-		float distanceToTopEdge = Mathf.Abs(maxBounds.z - framePosition.z);
-		float distanceToBottomEdge = Mathf.Abs(framePosition.z - minBounds.z);
+		// Calculate the distances to each edge
+		float distanceToLeftEdge = Mathf.Abs(frameCenter.y - workingAreaBounds.min.y);
+		float distanceToRightEdge = Mathf.Abs(workingAreaBounds.max.y - frameCenter.y);
+		float distanceToTopEdge = Mathf.Abs(workingAreaBounds.max.z - frameCenter.z);
+		float distanceToBottomEdge = Mathf.Abs(frameCenter.z - workingAreaBounds.min.z);
+
+		// // Account for frame's own size
+		// float frameHalfWidth = frameBounds.size.y / 2f;
+		// float frameHalfLength = frameBounds.size.z / 2f;
+
+		// // Adjust distances by subtracting frame's half size
+		// distanceToLeftEdge -= frameHalfWidth;
+		// distanceToRightEdge -= frameHalfWidth;
+		// distanceToTopEdge -= frameHalfLength;
+		// distanceToBottomEdge -= frameHalfLength;
+
+		// Ensure distances don't go below 0
+		distanceToLeftEdge = Mathf.Max(0, distanceToLeftEdge);
+		distanceToRightEdge = Mathf.Max(0, distanceToRightEdge);
+		distanceToTopEdge = Mathf.Max(0, distanceToTopEdge);
+		distanceToBottomEdge = Mathf.Max(0, distanceToBottomEdge);
+
+		// For debugging
+		Debug.DrawLine(frameCenter, new Vector3(workingAreaBounds.min.y, frameCenter.y, frameCenter.z), Color.red, 1f);
+		Debug.DrawLine(frameCenter, new Vector3(workingAreaBounds.max.y, frameCenter.y, frameCenter.z), Color.green, 1f);
+		Debug.DrawLine(frameCenter, new Vector3(frameCenter.y, frameCenter.y, workingAreaBounds.max.z), Color.blue, 1f);
+		Debug.DrawLine(frameCenter, new Vector3(frameCenter.y, frameCenter.y, workingAreaBounds.min.z), Color.yellow, 1f);
 
 		// Create or update the text for displaying distances
 		CreateOrUpdateDistanceText(frame, distanceToLeftEdge, "LeftEdgeDistance", new Vector3(-0.7f, 0.3f, 0));
@@ -63,6 +89,7 @@ public class DistanceManager : MonoBehaviour
 		CreateOrUpdateDistanceText(frame, distanceToTopEdge, "TopEdgeDistance", new Vector3(0, 0.3f, 0.7f));
 		CreateOrUpdateDistanceText(frame, distanceToBottomEdge, "BottomEdgeDistance", new Vector3(0, 0.3f, -0.7f));
 	}
+
 
 	private void CreateOrUpdateDistanceText(GameObject frame, float distance, string textObjectName, Vector3 localPosition)
 	{
@@ -91,4 +118,5 @@ public class DistanceManager : MonoBehaviour
 			textTransform.GetComponent<TextMeshPro>().text = (int)(distance * 100) + "cm";
 		}
 	}
+
 }

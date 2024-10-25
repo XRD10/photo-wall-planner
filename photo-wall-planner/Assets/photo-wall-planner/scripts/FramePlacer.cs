@@ -13,7 +13,7 @@ public class FramePlacer : PressInputBase
 {
     [SerializeField] private ARRaycastManager raycastManager;
     [SerializeField] private GameObject objectToPlace;
-    [SerializeField] private FrameMenuUI frames;
+    [SerializeField] private FrameMenuUI frameMenuUI;
     [SerializeField] private Canvas setFrameSizesCanvas;
     [SerializeField] private Camera arCamera;
     [SerializeField] private GalleryManager galleryManager;
@@ -30,7 +30,6 @@ public class FramePlacer : PressInputBase
     {
         base.OnPressBegan(position);
         if (EventSystem.current.IsPointerOverGameObject()) return;
-        objectToPlace = frames.GetFrame();
         if (!raycastManager.Raycast(position, _hits, TrackableType.PlaneWithinPolygon)) return;
 
         ray = arCamera.ScreenPointToRay(position);
@@ -39,12 +38,24 @@ public class FramePlacer : PressInputBase
             if (hitObject.transform.CompareTag("Placable")) return;
         if (objectToPlace == null)
 
-            if (objectToPlace == null)
-            {
-                Debug.Log("No object selected");
-                return;
-            }
-        PlaceFrame();
+            objectToPlace = frameMenuUI.GetFrame();
+
+        if (objectToPlace == null)
+        {
+            Debug.Log("No object selected");
+            return;
+        }
+
+        if (frameMenuUI.IsCustomFrame())
+        {
+            (float sizeX, float sizeZ) = frameMenuUI.GetCustomFrameSize();
+            PlaceCustomFrame(sizeX, sizeZ);
+        }
+        else
+        {
+
+            PlaceFrame();
+        }
 
     }
     public void PlaceFrame()
@@ -61,14 +72,14 @@ public class FramePlacer : PressInputBase
 
         if (texture)
         {
-            float yRotation = frames.GetLandscape() ? 0f : 90f;
+            float yRotation = frameMenuUI.GetLandscape() ? 0f : 90f;
 
             instance = Instantiate(objectToPlace, hitpose.position, Quaternion.identity);
             instance.transform.localScale = new Vector3(objectToPlace.transform.localScale.x, objectToPlace.transform.localScale.y / 10, objectToPlace.transform.localScale.z);
             instance.transform.up = hitpose.up;
             instance.transform.Rotate(0, yRotation, 0, Space.Self);
             instance.tag = "Placable";
-
+            SetText(instance, instance.transform.localScale.z, instance.transform.localScale.x);
             applyPicture();
         }
         else

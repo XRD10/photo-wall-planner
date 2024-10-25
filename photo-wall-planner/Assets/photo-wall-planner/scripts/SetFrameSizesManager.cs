@@ -14,6 +14,7 @@ public class SetFrameSizesManager : MonoBehaviour
     [SerializeField] private FramePlacer framePlacer;
     [SerializeField] private GameObject framesButton;
     [SerializeField] private Canvas galleryMenu;
+    [SerializeField] private FrameMenuUI fameMenuUI;
 
     void Awake()
     {
@@ -25,7 +26,7 @@ public class SetFrameSizesManager : MonoBehaviour
             if (float.TryParse(sizeXInput.text, out var sizeX) && float.TryParse(sizeZInput.text, out var sizeZ))
             {
                 HideInvalidInputText();
-                framePlacer.PlaceCustomFrame(sizeX, sizeZ);
+                fameMenuUI.SetCustomSpawnObject(sizeX, sizeZ);
                 HideUI();
                 framesButton.SetActive(true);
                 galleryMenu.gameObject.SetActive(true);

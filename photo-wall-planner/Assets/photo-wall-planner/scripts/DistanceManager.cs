@@ -7,15 +7,27 @@ public class DistanceManager : MonoBehaviour
 	private bool displayDistances = false;
 	private readonly List<GameObject> frames = new List<GameObject>();
 	private WorkingAreaManager workingAreaManager;
+
+	private GameObject frameObject;
 	private void Awake()
 	{
 		workingAreaManager = FindFirstObjectByType<WorkingAreaManager>();
 	}
 
+	private void Update()
+	{
+		if (frameObject)
+		{
+			CalculateAndDisplayDistances();
+		}
+
+	}
+
 	public void AddFrame(GameObject frame)
 	{
 		frames.Add(frame);
-		CalculateAndDisplayDistances(frame);
+		frameObject = frame;
+		CalculateAndDisplayDistances();
 	}
 
 	public void ToggleDistanceDisplay()
@@ -27,7 +39,7 @@ public class DistanceManager : MonoBehaviour
 			if (displayDistances)
 			{
 				// Calculate and display distances only when turning on the display
-				CalculateAndDisplayDistances(frame);
+				CalculateAndDisplayDistances();
 			}
 			ToggleFrameDistances(frame, displayDistances);
 		}
@@ -43,22 +55,23 @@ public class DistanceManager : MonoBehaviour
 			}
 		}
 	}
-	private void CalculateAndDisplayDistances(GameObject frame)
+	private void CalculateAndDisplayDistances()
 	{
 		GameObject workingAreaPlane = workingAreaManager.GetPlane();
 
 		// Get the mounting point
-		Transform mountingPoint = frame.transform.Find("Frame").Find("ls_MountingPoint");
+		Transform mountingPoint = frameObject.transform.Find("Frame").Find("ls_MountingPoint");
 
 		if (mountingPoint == null)
 		{
-			mountingPoint = frame.transform.Find("Frame").Find("p_MountingPoint");
+			mountingPoint = frameObject.transform.Find("Frame").Find("p_MountingPoint");
 			if (mountingPoint == null)
 			{
 				Debug.LogError("Mounting point not found on frame!");
 				return;
 			}
 		}
+		Debug.Log("HERE");
 
 		// Get working area bounds
 		Bounds workingAreaBounds = workingAreaPlane.GetComponent<Renderer>().bounds;
@@ -76,10 +89,10 @@ public class DistanceManager : MonoBehaviour
 		float distanceTop = Mathf.Abs(mountingPosition.z - positionTop);
 		float distanceBottom = Mathf.Abs(mountingPosition.z - positionBottom);
 
-		CreateOrUpdateDistanceText(frame, distanceLeft, "LeftEdgeDistance", new Vector3(-0.7f, 0.3f, 0));
-		CreateOrUpdateDistanceText(frame, distanceRight, "RightEdgeDistance", new Vector3(0.7f, 0.3f, 0));
-		CreateOrUpdateDistanceText(frame, distanceTop, "TopEdgeDistance", new Vector3(0, 0.3f, 0.7f));
-		CreateOrUpdateDistanceText(frame, distanceBottom, "BottomEdgeDistance", new Vector3(0, 0.3f, -0.7f));
+		CreateOrUpdateDistanceText(frameObject, distanceLeft, "LeftEdgeDistance", new Vector3(-0.7f, 0.3f, 0));
+		CreateOrUpdateDistanceText(frameObject, distanceRight, "RightEdgeDistance", new Vector3(0.7f, 0.3f, 0));
+		CreateOrUpdateDistanceText(frameObject, distanceTop, "TopEdgeDistance", new Vector3(0, 0.3f, 0.7f));
+		CreateOrUpdateDistanceText(frameObject, distanceBottom, "BottomEdgeDistance", new Vector3(0, 0.3f, -0.7f));
 	}
 
 
@@ -113,3 +126,4 @@ public class DistanceManager : MonoBehaviour
 	}
 
 }
+

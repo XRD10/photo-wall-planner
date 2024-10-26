@@ -47,7 +47,7 @@ public class FramePlacer : PressInputBase
             return;
         }
         //Checking placing mode
-        GetMode();
+        CheckIsSelected();
         if (selectedMode == true)
         {
             Debug.Log("In placing mode");

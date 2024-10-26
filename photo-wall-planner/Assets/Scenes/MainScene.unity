@@ -1120,6 +1120,7 @@ MonoBehaviour:
   frameMenuUI: {fileID: 974823095}
   setFrameSizesCanvas: {fileID: 755284095}
   arCamera: {fileID: 1360256773}
+  galleryManager: {fileID: 1533075314}
 --- !u!4 &710260146
 Transform:
   m_ObjectHideFlags: 0
@@ -1379,6 +1380,7 @@ MonoBehaviour:
   invalidInputText: {fileID: 934521303}
   framePlacer: {fileID: 710260145}
   framesButton: {fileID: 1764314027}
+  galleryMenu: {fileID: 1533075313}
   fameMenuUI: {fileID: 974823095}
 --- !u!114 &755284091
 MonoBehaviour:

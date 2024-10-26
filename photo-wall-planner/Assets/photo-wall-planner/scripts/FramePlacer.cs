@@ -22,9 +22,6 @@ public class FramePlacer : PressInputBase
     private static readonly List<ARRaycastHit> _hits = new();
     private Ray ray;
     private Texture2D texture;
-    [SerializeField] private Vector3 xTextSpawn;
-    [SerializeField] private Vector3 yTextSpawn;
-    [SerializeField] private TMP_FontAsset fontXY;
 
     protected override void OnPressBegan(Vector3 position)
     {
@@ -103,12 +100,13 @@ public class FramePlacer : PressInputBase
 
         if (texture)
         {
+            Debug.Log("HAS TEXTURE");
             instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
             instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
             instance.tag = "Placable";
 
-            applyPicture();
             SetText(instance, sizeZ, sizeX);
+            applyPicture();
         }
         else
         {
@@ -155,6 +153,7 @@ public class FramePlacer : PressInputBase
 
     public void applyPicture()
     {
+        Debug.Log("APPLY");
         GameObject imageObject = instance.transform.Find("Image").gameObject;
         GameObject frameObject = instance.transform.Find("Frame").gameObject;
         SpriteRenderer spriteRenderer = imageObject.GetComponent<SpriteRenderer>();

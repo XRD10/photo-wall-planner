@@ -100,7 +100,6 @@ public class FramePlacer : PressInputBase
 
         if (texture)
         {
-            Debug.Log("HAS TEXTURE");
             instance = Instantiate(objectToPlace, hitpose.position, hitpose.rotation);
             instance.transform.localScale = new Vector3(sizeX, objectToPlace.transform.localScale.y / 10, sizeZ);
             instance.tag = "Placable";
@@ -153,7 +152,6 @@ public class FramePlacer : PressInputBase
 
     public void applyPicture()
     {
-        Debug.Log("APPLY");
         GameObject imageObject = instance.transform.Find("Image").gameObject;
         GameObject frameObject = instance.transform.Find("Frame").gameObject;
         SpriteRenderer spriteRenderer = imageObject.GetComponent<SpriteRenderer>();
@@ -168,7 +166,6 @@ public class FramePlacer : PressInputBase
         spriteRenderer.sprite = newSprite;
         if (isLandscape)
         {
-            Debug.Log("A");
             targetSizeLandscape = frameObject.GetComponent<SpriteRenderer>().bounds.size.y;
             currentSizeLandscape = spriteRenderer.bounds.size.y;
             scaleFactor = targetSizeLandscape / currentSizeLandscape;
@@ -184,7 +181,6 @@ public class FramePlacer : PressInputBase
         }
         else
         {
-            Debug.Log("B");
             targetSizePortrait = frameObject.GetComponent<SpriteRenderer>().bounds.size.z;
             currentSizePortrait = spriteRenderer.bounds.size.z;
             scaleFactor = targetSizePortrait / currentSizePortrait;

@@ -81,7 +81,7 @@ public class FramePlacer : PressInputBase
 
     }
 
-    private void GetMode()
+    private void CheckIsSelected()
     {
         selectedMode = moveObject.isSelected();
     }

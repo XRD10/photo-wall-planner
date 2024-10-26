@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MainScene.unity
     guid: 0347746b71aa44ba19ea2904984d8c14
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/12_UploadCompressedPhoto.unity
     guid: af1596cf2857e49d788ba2ea81519f01
   m_configObjects:

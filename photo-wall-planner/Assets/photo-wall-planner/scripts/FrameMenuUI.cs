@@ -143,9 +143,9 @@ public class FrameMenuUI : MonoBehaviour
     {
         if (index >= 0 && index < NumberOfFrames)
         {
-                FrameToSpawn = FrameSelection[index];
-                isCustomFrame = false;
-                return;
+            FrameToSpawn = FrameSelection[index];
+            isCustomFrame = false;
+            return;
         }
         Debug.LogError("Index error - Check object list");
         return;
@@ -164,7 +164,8 @@ public class FrameMenuUI : MonoBehaviour
         isCustomFrame = true;
     }
 
-    public bool IsCustomFrame(){
+    public bool IsCustomFrame()
+    {
         return isCustomFrame;
     }
 }

@@ -2073,7 +2073,7 @@ MonoBehaviour:
   - {fileID: 2601006875420310563, guid: ef5a4afd422c0af48be55046c84659b9, type: 3}
   - {fileID: 453888489003895836, guid: 608343bfdea1faf46863810aa4b73ef7, type: 3}
   - {fileID: 6653437754373560039, guid: e0b239b7e7e3dc644a5266e3b5717767, type: 3}
-  - {fileID: 7713564677252925045, guid: d63ca87df267d8f419ef2a2cd75bb5ff, type: 3}
+  - {fileID: 6082718049193261450, guid: b56dc903b7e7844e5afa5c1a1e7dd90b, type: 3}
   ls_FrameObjects:
   - {fileID: 6506067314281045999, guid: 60060a6a2610ea342be026653ac574c6, type: 3}
   - {fileID: 6082718049193261450, guid: 108544f259ccc7249886950e69374034, type: 3}
@@ -2081,9 +2081,9 @@ MonoBehaviour:
   - {fileID: 2601006875420310563, guid: ef5a4afd422c0af48be55046c84659b9, type: 3}
   - {fileID: 8992919732486948389, guid: 0ccb506caf39e0a46ade9da5eb22c814, type: 3}
   - {fileID: 6916559242482437649, guid: 0948525f68fc1724c9167130a42dc454, type: 3}
-  - {fileID: 7713564677252925045, guid: d63ca87df267d8f419ef2a2cd75bb5ff, type: 3}
+  - {fileID: 6082718049193261450, guid: b56dc903b7e7844e5afa5c1a1e7dd90b, type: 3}
   FrameToSpawn: {fileID: 0}
-  customFrame: {fileID: 7713564677252925045, guid: d63ca87df267d8f419ef2a2cd75bb5ff,
+  customFrame: {fileID: 6082718049193261450, guid: b56dc903b7e7844e5afa5c1a1e7dd90b,
     type: 3}
   OrientationWindow: {fileID: 1846544392}
   FramesButton: {fileID: 1764314027}

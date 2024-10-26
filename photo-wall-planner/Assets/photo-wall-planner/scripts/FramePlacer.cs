@@ -36,9 +36,8 @@ public class FramePlacer : PressInputBase
 
         if (Physics.Raycast(ray, out RaycastHit hitObject))
             if (hitObject.transform.CompareTag("Placable")) return;
-        if (objectToPlace == null)
 
-            objectToPlace = frameMenuUI.GetFrame();
+        objectToPlace = frameMenuUI.GetFrame();
 
         if (objectToPlace == null)
         {
@@ -159,7 +158,7 @@ public class FramePlacer : PressInputBase
         GameObject imageObject = instance.transform.Find("Image").gameObject;
         GameObject frameObject = instance.transform.Find("Frame").gameObject;
         SpriteRenderer spriteRenderer = imageObject.GetComponent<SpriteRenderer>();
-        Boolean isLandscape = frames.GetLandscape();
+        Boolean isLandscape = frameMenuUI.GetLandscape();
         float scaleFactor;
 
         Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));

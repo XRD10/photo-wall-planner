@@ -32,7 +32,6 @@ public class ARSessionPlayback : MonoBehaviour
         {
             var frame = playbackRecording.frames[currentFrameIndex];
 
-            // Check if it's time to show the next frame
             if (Time.time - startTime >= frame.timestamp)
             {
                 arPlaybackCamera.transform.position = frame.position;
@@ -40,10 +39,9 @@ public class ARSessionPlayback : MonoBehaviour
                 currentFrameIndex++;
             }
 
-            // Check if we've reached the end of the recording
             if (currentFrameIndex >= playbackRecording.frames.Count)
             {
-                isPlaying = false; // Stop playback
+                isPlaying = false;
             }
         }
     }
@@ -57,7 +55,7 @@ public class ARSessionPlayback : MonoBehaviour
 
     public void LoadRecording(string fileName)
     {
-        string path = Path.Combine(Application.persistentDataPath, fileName); // Update path as needed
+        string path = Path.Combine(Application.persistentDataPath, fileName);
         playbackRecording = JsonUtility.FromJson<ARSessionRecording>(File.ReadAllText(path));
 
         if (playbackRecording == null)
@@ -66,6 +64,6 @@ public class ARSessionPlayback : MonoBehaviour
 
     public void ResetPlayback()
     {
-        StartPlayback();  // Resets the playback to the beginning
+        StartPlayback(); 
     }
 }

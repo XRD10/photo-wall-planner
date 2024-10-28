@@ -11,15 +11,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 4755b35b590504809a7525fd2109c2e2
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/5_typeXandY.unity
     guid: 0f6197ac94d6642348a2bc5326921227
   - enabled: 0
     path: Assets/Scenes/7_SaveProject.unity
     guid: 59b3139d782ee48a689df929754661e7
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 0347746b71aa44ba19ea2904984d8c14
+  - enabled: 0
+    path: Assets/Scenes/12_UploadCompressedPhoto.unity
+    guid: af1596cf2857e49d788ba2ea81519f01
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}

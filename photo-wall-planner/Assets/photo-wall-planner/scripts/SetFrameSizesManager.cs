@@ -13,6 +13,7 @@ public class SetFrameSizesManager : MonoBehaviour
 
     [SerializeField] private FramePlacer framePlacer;
     [SerializeField] private GameObject framesButton;
+    [SerializeField] private Canvas galleryMenu;
     [SerializeField] private FrameMenuUI fameMenuUI;
 
     void Awake()
@@ -28,6 +29,8 @@ public class SetFrameSizesManager : MonoBehaviour
                 fameMenuUI.SetCustomSpawnObject(sizeX, sizeZ);
                 HideUI();
                 framesButton.SetActive(true);
+                galleryMenu.gameObject.SetActive(true);
+
             }
             else
             {

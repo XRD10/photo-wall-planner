@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/7_SaveProject.unity
     guid: 59b3139d782ee48a689df929754661e7
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 0347746b71aa44ba19ea2904984d8c14
   - enabled: 0

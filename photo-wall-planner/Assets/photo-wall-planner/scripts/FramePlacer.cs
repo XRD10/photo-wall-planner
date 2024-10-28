@@ -23,6 +23,16 @@ public class FramePlacer : PressInputBase
     private Ray ray;
     private Texture2D texture;
 
+    [SerializeField] private Vector3 xTextSpawn;
+    [SerializeField] private Vector3 yTextSpawn;
+    [SerializeField] private TMP_FontAsset fontXY;
+    [SerializeField]
+    private MoveObject moveObject;
+    [SerializeField] private bool selectedMode = false;
+
+
+
+
     protected override void OnPressBegan(Vector3 position)
     {
         base.OnPressBegan(position);
@@ -41,7 +51,13 @@ public class FramePlacer : PressInputBase
             Debug.Log("No object selected");
             return;
         }
-
+        //Checking placing mode
+        CheckIsSelected();
+        if (selectedMode == true)
+        {
+            Debug.Log("In placing mode");
+            return;
+        }
         if (frameMenuUI.IsCustomFrame())
         {
             (float sizeX, float sizeZ) = frameMenuUI.GetCustomFrameSize();
@@ -83,6 +99,11 @@ public class FramePlacer : PressInputBase
             Debug.Log("Choose image from gallery");
         }
 
+    }
+
+    private void CheckIsSelected()
+    {
+        selectedMode = moveObject.isSelected();
     }
 
     public void PlaceCustomFrame(float sizeX, float sizeZ)
